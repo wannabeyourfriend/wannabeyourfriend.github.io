@@ -32,6 +32,8 @@
     colors.arc   = s.getPropertyValue('--globe-arc').trim()   || 'rgba(103,130,143,0.55)';
     colors.pin   = s.getPropertyValue('--globe-pin').trim()   || '#7e9aad';
     colors.label = s.getPropertyValue('--globe-label').trim() || '#65706f';
+    colors.land  = s.getPropertyValue('--globe-land').trim()  || 'rgba(103,130,143,0.5)';
+    colors.moon  = s.getPropertyValue('--paper').trim()       || '#fdfefd';
   }
   readColors();
   window.addEventListener('themechange', readColors);
@@ -105,6 +107,54 @@
     ctx.stroke();
   }
 
+  /* ----- continents as a dot-matrix, from a 1° land mask ----- */
+  var landDots = null;
+  (function loadLand() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/assets/data/land.json?v=1');
+    xhr.onload = function () {
+      if (xhr.status !== 200) return;
+      var mask = JSON.parse(xhr.responseText);
+      // hex rows -> bit lookup: land(latIdx 0..179 from -90, lonIdx 0..359 from -180)
+      var rows = mask.rows.map(function (hex) {
+        var bytes = new Uint8Array(45);
+        for (var i = 0; i < 45; i++) bytes[i] = parseInt(hex.substr(i * 2, 2), 16);
+        return bytes;
+      });
+      function isLand(lat, lon) {
+        var li = Math.floor(lat + 90), lo = Math.floor(lon + 180);
+        if (li < 0 || li > 179) return false;
+        lo = ((lo % 360) + 360) % 360;
+        return (rows[li][lo >> 3] & (1 << (lo & 7))) !== 0;
+      }
+      // fixed surface dots, lon spacing widened by 1/cos(lat) so density is even
+      var STEP = 2.6;
+      landDots = [];
+      for (var lat = -84; lat <= 84; lat += STEP) {
+        var lonStep = STEP / Math.cos(lat * RAD);
+        for (var lon = -180; lon < 180; lon += lonStep) {
+          if (isLand(lat, lon)) landDots.push(vec(lat, lon));
+        }
+      }
+    };
+    xhr.send();
+  })();
+
+  function drawLand() {
+    if (!landDots) return;
+    ctx.fillStyle = colors.land;
+    for (var i = 0; i < landDots.length; i++) {
+      var p = view(landDots[i]);
+      if (p.z <= 0.01) continue;
+      var s = screen(p);
+      ctx.globalAlpha = Math.min(1, p.z * 1.8);
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, 1.1, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
   /* ----- places I've been, and the flights between them ----- */
   var CITIES = {
     beijing:     { lat: 39.90,  lon: 116.41, label: 'beijing' },
@@ -156,20 +206,6 @@
       ctx.globalAlpha = 0.8;
       ctx.stroke();
       ctx.globalAlpha = 1;
-
-      // a little aircraft riding the arc
-      if (!reduced) {
-        var ph = (t * 0.06 + i * 0.41) % 1;
-        var fp = view(slerp(a, b, ph));
-        fp.scale = 1 + 0.07 * Math.sin(Math.PI * ph);
-        if (fp.z > 0.02) {
-          var fs = screen(fp, fp.scale);
-          ctx.beginPath();
-          ctx.arc(fs.x, fs.y, 1.6, 0, Math.PI * 2);
-          ctx.fillStyle = colors.pin;
-          ctx.fill();
-        }
-      }
     }
 
     // city pins + labels on the front hemisphere
@@ -261,6 +297,87 @@
     }
   }
 
+  /* ----- the moon, on a wide inclined orbit ----- */
+  var MOON = { radius: 1.66, incl: 14 * RAD, phase: 1.1, speed: 0.12 };
+
+  function drawMoon() {
+    // dashed orbit path, wider dashes than the satellites'
+    ctx.beginPath();
+    var open = false;
+    for (var a = 0; a <= 360; a += 3) {
+      var p = orbitPoint(MOON, a * RAD);
+      if (!occluded(p)) {
+        var s = screen(p);
+        if (!open) { ctx.moveTo(s.x, s.y); open = true; }
+        else ctx.lineTo(s.x, s.y);
+      } else open = false;
+    }
+    ctx.setLineDash([1, 9]);
+    ctx.strokeStyle = colors.line;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    var speed = MOON.speed * (warpT > 0 ? 8 : 1);
+    var mp = orbitPoint(MOON, MOON.phase + t * speed);
+    if (occluded(mp)) return;
+    var ms = screen(mp);
+    var zn = mp.z / MOON.radius;             // -1 .. 1 depth
+    var r = 6.2 + 1.8 * zn;                  // nearer = a touch larger
+    var al = zn > 0 ? 1 : 0.5;
+
+    ctx.globalAlpha = al;
+    ctx.beginPath();                          // body, paper-toned
+    ctx.arc(ms.x, ms.y, r, 0, Math.PI * 2);
+    ctx.fillStyle = colors.moon;
+    ctx.fill();
+    ctx.strokeStyle = colors.limb;
+    ctx.lineWidth = 1.1;
+    ctx.stroke();
+
+    ctx.strokeStyle = colors.line;            // a few craters, hand-drawn
+    ctx.lineWidth = 0.9;
+    var CRATERS = [[-0.34, -0.22, 0.30], [0.28, 0.10, 0.20], [-0.05, 0.42, 0.15]];
+    for (var i = 0; i < CRATERS.length; i++) {
+      ctx.beginPath();
+      ctx.arc(ms.x + CRATERS[i][0] * r, ms.y + CRATERS[i][1] * r, CRATERS[i][2] * r, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  /* ----- pointer ripples: the space answers back ----- */
+  var ripples = [];
+  var lastRX = -1, lastRY = -1;
+
+  function spawnRipple(x, y, strong) {
+    if (reduced) return;
+    ripples.push({ x: x, y: y, age: 0, life: strong ? 1.5 : 1.0, max: strong ? 96 : 52, a: strong ? 0.55 : 0.3 });
+    if (ripples.length > 24) ripples.shift();
+  }
+
+  function drawRipples(dt) {
+    for (var i = ripples.length - 1; i >= 0; i--) {
+      var rp = ripples[i];
+      rp.age += dt;
+      var f = rp.age / rp.life;
+      if (f >= 1) { ripples.splice(i, 1); continue; }
+      var ease = 1 - Math.pow(1 - f, 3);
+      var rr = 4 + ease * rp.max;
+      ctx.strokeStyle = colors.arc;
+      ctx.lineWidth = 1;
+      ctx.globalAlpha = rp.a * (1 - f);
+      ctx.beginPath();                        // flattened — a ripple in the spatial plane
+      ctx.ellipse(rp.x, rp.y, rr, rr * 0.34, 0, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.beginPath();                        // trailing inner ring
+      ctx.ellipse(rp.x, rp.y, rr * 0.55, rr * 0.55 * 0.34, 0, 0, Math.PI * 2);
+      ctx.globalAlpha = rp.a * (1 - f) * 0.5;
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+  }
+
   // small "+" twinkles floating around the sphere
   var MARKS = [
     { x: 0.08, y: 0.16 }, { x: 0.92, y: 0.10 }, { x: 0.95, y: 0.62 },
@@ -296,10 +413,13 @@
     }
 
     ctx.clearRect(0, 0, W, H);
+    drawRipples(dt);
     drawMarks(now);
     drawGraticule();
+    drawLand();
     drawRoutes();
     drawSatellites();
+    drawMoon();
 
     requestAnimationFrame(frame);
   }
@@ -320,11 +440,23 @@
 
   // ----- interaction -----
   canvas.style.touchAction = 'pan-y';
+  function localXY(e) {
+    var r = canvas.getBoundingClientRect();
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+  }
   canvas.addEventListener('pointerdown', function (e) {
     dragging = true; lastX = e.clientX;
     canvas.setPointerCapture(e.pointerId);
+    var p = localXY(e);
+    spawnRipple(p.x, p.y, true);
   });
   canvas.addEventListener('pointermove', function (e) {
+    var p = localXY(e);
+    var dxr = p.x - lastRX, dyr = p.y - lastRY;
+    if (dxr * dxr + dyr * dyr > 42 * 42) {   // a quiet wake, not a wave pool
+      spawnRipple(p.x, p.y, false);
+      lastRX = p.x; lastRY = p.y;
+    }
     if (!dragging) return;
     var dx = e.clientX - lastX;
     lastX = e.clientX;
