@@ -1,0 +1,66 @@
+publications:
+  - title: "S³-Sim: Simulating Humans for Personalized Language Modeling"
+    conference_short: Submission
+    conference: In Submission
+    authors: "Jinzhou Tang*, Yufan Zhou*, <strong>Zixuan Wang*</strong>, Zhaoxiang Feng, Xinle Yu, Steven Ngo, Zhengding Hu, Luoshang Pan, Lianhui Qin, Yufei Ding, Tianmin Shu, Jingbo Shang, Zhiting Hu, Zhen Wang†"
+    image: ./assets/img/s3-personalization.png
+    notes: (*Equal Contribution)
+
+  - title: "Lightweight Neural Refinement for Drift Calibration in Eye Tracking Systems"
+    conference_short: Submission
+    conference: In Submission
+    authors: "Liu Jiaqi*, <strong>Zixuan Wang*</strong>, Yuhong Zhang, Dingkang Liang, Jane Hanqi Li, Tzyy-Ping Jung, Gert Cauwenberghs†"
+    image: ./assets/img/chi-eyetrack.png
+    notes: (*Equal Contribution)
+
+technical_reports:
+  - title: "MiroThinker: Pushing the Performance Boundaries of Open-Source Research Agents"
+    conference_short: Preprint
+    conference: Preprint, arXiv:2511.11793
+    page: https://arxiv.org/abs/2511.11793
+    code: https://github.com/MiroMindAI/MiroThinker
+    image: ./assets/img/mirothinker.png
+    notes: Project Contributor
+
+course_projects:
+  - title: "Ego-embodied Reasoner: Egocentric Embodied Reasoning and Planning with MLLM via Reinforcement Learning"
+    conference_short: Course
+    conference: Deep Reinforcement Learning Course Project, Instructed by Professor Huazhe Xu
+    pdf: /assets/files/EgoReasoner.pdf
+    code: https://github.com/wannabeyourfriend/EgoReasoner
+    video: https://cloud.tsinghua.edu.cn/f/0e7c7d68031c46abb049/
+    image: ./assets/img/egoreasoner-teaser.png
+    notes: Project Leader
+
+  - title: "EgoHOI: Prior-Guided 3D Hand-Object Interaction Reconstruction from Monocular Egocentric RGB Video"
+    conference_short: Course
+    conference: Computer Vision Course Project
+    pdf: /assets/files/EgoHOI.pdf
+    code: https://github.com/wannabeyourfriend/EgoHOI
+    image: ./assets/img/egohoi.png
+    notes: Project Leader
+
+  - title: "Unconditional and Image-conditioned 3D Generation"
+    conference_short: Course
+    conference: 3D Visual Computing Course Project, instructed by Professor Li Yi
+    pdf: /assets/files/3DV_project.pdf
+    code: https://github.com/wannabeyourfriend/3D-Visual-Computing-Project
+    video: https://cloud.tsinghua.edu.cn/f/b7a83c03f24249e89083/
+    image: ./assets/img/3dv.png
+    notes: Independent
+
+  - title: "Human Skeleton and Skin Generation"
+    conference_short: Course
+    conference: Fundamentals of Computer Graphics Course Project, the 5-th Jittor AI competition, track 2
+    pdf: /assets/files/CG_project.pdf
+    code: https://github.com/wannabeyourfriend/CG-project
+    image: ./assets/img/cg.png
+    notes: Project Leader
+
+  - title: "Project Reading Report"
+    conference_short: Course
+    conference: Object Oriented Programming Course Project
+    pdf: /assets/files/oop.pdf
+    code: https://github.com/wannabeyourfriend/oop-project
+    image: ./assets/img/oop.png
+    notes: Independent

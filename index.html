@@ -1,0 +1,277 @@
+---
+layout: homepage
+---
+
+<section id="about" class="sec">
+  <div class="sec-grid">
+    <aside class="sec-aside">
+      <div class="reveal">
+        <span class="sec-num mono">01</span>
+        <h2 class="sec-label">About</h2>
+      </div>
+      <figure class="portrait reveal" style="--d:.1s">
+        <img src="/assets/img/avatar.png" alt="Portrait of Zixuan (Alex) Wang">
+        <figcaption>alex, USS Midway, San Diego — deploying agents, not aircraft</figcaption>
+      </figure>
+    </aside>
+    <div class="sec-body">
+      <p class="lede reveal">
+        I am Zixuan Wang, a Physics undergraduate at <strong>Tsinghua University</strong> (class of 2023).
+        My research aims toward <strong>human-centered AI</strong> and <strong>autonomous agentic
+        systems</strong> — LLMs that reason, plan, and act <em>with</em> people.
+      </p>
+      <p class="reveal">
+        I am a remote research assistant at <strong>Carnegie Mellon University</strong> (ECE), advised by
+        <a href="https://azanette.com/" target="_blank" rel="noopener noreferrer">Prof. Andrea Zanette</a>.
+        During my Fall 2025 exchange at <strong>UC San Diego</strong>, I was an undergraduate researcher at the
+        <a href="https://mixlab.ucsd.edu" target="_blank" rel="noopener noreferrer">UCSD MixLab</a> (HDSI) with
+        <a href="https://zhenwang9102.github.io" target="_blank" rel="noopener noreferrer">Dr. Zhen Wang</a>.
+        Earlier, I was an AI intern at
+        <a href="https://research.miromind.ai/" target="_blank" rel="noopener noreferrer">MiroMind AI</a>, mentored by
+        <a href="https://scholar.google.com/citations?user=iLOoUqIAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Dr. Yuntao Chen</a>.
+      </p>
+      <div class="facts">
+        <div class="fact reveal" style="--d:.05s">
+          <div class="fact-k">Exploration</div>
+          <p>Traveling and experiencing diverse cultures — including an unforgettable Christmas 2025 by the seaside in La Jolla.</p>
+        </div>
+        <div class="fact reveal" style="--d:.1s">
+          <div class="fact-k">Competition</div>
+          <p>Tinker Robot Team, RoboCup@Home 2025 in Salvador, Brazil — an LLM-driven domestic service robot, 8th place globally.</p>
+        </div>
+        <div class="fact reveal" style="--d:.15s">
+          <div class="fact-k">Visits</div>
+          <p>Summer 2024 research visits in Singapore: A*STAR, Nanyang Technological University, and the National University of Singapore.</p>
+        </div>
+        <div class="fact reveal" style="--d:.2s">
+          <div class="fact-k">Music</div>
+          <p>Saxophone in the Tsinghua University Symphonic Band — performances, festivals, and campus events.</p>
+        </div>
+        <div class="fact reveal" style="--d:.25s">
+          <div class="fact-k">Sports</div>
+          <p>Volleyball, swimming, and the gym — ideally all three in one week.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="research" class="sec">
+  <div class="sec-grid">
+    <aside class="sec-aside">
+      <div class="reveal">
+        <span class="sec-num mono">02</span>
+        <h2 class="sec-label">Research<br>Interests</h2>
+      </div>
+    </aside>
+    <div class="sec-body">
+      <p class="lede reveal">
+        I work on <strong>LLM algorithms</strong> that enable more reliable, adaptive, and autonomous
+        interaction with humans — leveraging synthetic data, structured supervision, and preference-based
+        training to improve models' understanding of human intent, while ensuring privacy and safety.
+      </p>
+
+      <figure class="loop-fig reveal" role="img"
+              aria-label="Diagram: a human and the world connected through an LLM agent — intent and assistance on one side, action and feedback on the other — the whole system held in one quiet orbit.">
+        <svg viewBox="0 0 860 320" xmlns="http://www.w3.org/2000/svg">
+          <!-- the quiet orbit holding the whole system -->
+          <path id="grand-orbit" class="orbit" fill="none" stroke="#c2cbc8" stroke-width="1.6" stroke-dasharray="0.1 7" stroke-linecap="round" d="M30,162 a390,122 0 1,0 780,0 a390,122 0 1,0 -780,0"/>
+          <g class="sat"><circle class="sat-ring" fill="none" stroke="#7e9aad" r="5.5"/><circle class="sat-core" fill="#7e9aad" r="2.2"/>
+            <animateMotion dur="36s" repeatCount="indefinite"><mpath href="#grand-orbit"/></animateMotion></g>
+          <path id="grand-orbit-b" fill="none" stroke="none" d="M810,162 a390,122 0 1,0 -780,0 a390,122 0 1,0 780,0"/>
+          <g class="sat"><circle class="sat-core" fill="#7e9aad" r="1.8"/>
+            <animateMotion dur="52s" repeatCount="indefinite"><mpath href="#grand-orbit-b"/></animateMotion></g>
+
+          <!-- field marks -->
+          <path class="plus" fill="none" stroke="#c2cbc8" d="M64,52 v10 M59,57 h10"/>
+          <path class="plus" fill="none" stroke="#c2cbc8" d="M812,70 v10 M807,75 h10"/>
+          <path class="plus" fill="none" stroke="#c2cbc8" d="M788,268 v10 M783,273 h10"/>
+          <path class="plus" fill="none" stroke="#c2cbc8" d="M96,250 v10 M91,255 h10"/>
+
+          <!-- flows -->
+          <path id="f-intent"   class="flow" d="M186,134 C246,92 308,92 358,124"/>
+          <path id="f-action"   class="flow" d="M490,124 C544,90 606,90 652,120"/>
+          <path id="f-feedback" class="flow" d="M652,200 C606,232 546,232 492,198"/>
+          <path id="f-assist"   class="flow" d="M356,198 C302,232 242,232 182,188"/>
+          <path class="arrow" d="M0,-4 L7,0 L0,4 z" transform="translate(358,124) rotate(34)"/>
+          <path class="arrow" d="M0,-4 L7,0 L0,4 z" transform="translate(652,120) rotate(33)"/>
+          <path class="arrow" d="M0,-4 L7,0 L0,4 z" transform="translate(492,198) rotate(212)"/>
+          <path class="arrow" d="M0,-4 L7,0 L0,4 z" transform="translate(182,188) rotate(212)"/>
+          <text x="272" y="86"  text-anchor="middle">intent</text>
+          <text x="572" y="84"  text-anchor="middle">action</text>
+          <text x="572" y="246" text-anchor="middle">feedback</text>
+          <text x="268" y="246" text-anchor="middle">assistance</text>
+
+          <!-- traveling signals -->
+          <circle class="dot" r="3"><animateMotion dur="3.4s" repeatCount="indefinite" begin="0s"><mpath href="#f-intent"/></animateMotion></circle>
+          <circle class="dot" r="3"><animateMotion dur="3.4s" repeatCount="indefinite" begin="0.8s"><mpath href="#f-action"/></animateMotion></circle>
+          <circle class="dot" r="3"><animateMotion dur="3.4s" repeatCount="indefinite" begin="1.6s"><mpath href="#f-feedback"/></animateMotion></circle>
+          <circle class="dot" r="3"><animateMotion dur="3.4s" repeatCount="indefinite" begin="2.4s"><mpath href="#f-assist"/></animateMotion></circle>
+
+          <!-- human -->
+          <circle class="node" cx="134" cy="160" r="46"/>
+          <circle class="glyph" cx="134" cy="148" r="9"/>
+          <path class="glyph" d="M116,184 c4,-15 32,-15 36,0"/>
+          <text class="t-name" x="134" y="232" text-anchor="middle">Human</text>
+          <text x="134" y="250" text-anchor="middle">intent · preference</text>
+
+          <!-- llm agent -->
+          <circle class="halo" cx="424" cy="160" r="66"/>
+          <circle class="node" cx="424" cy="160" r="56"/>
+          <path class="glyph agent-spark" stroke-width="2.4"
+                d="M424,136 v15 M424,169 v15 M400,160 h15 M433,160 h15 M407,143 l10.5,10.5 M430.5,166.5 l10.5,10.5 M441,143 l-10.5,10.5 M417.5,166.5 l-10.5,10.5"/>
+          <text class="t-name" x="424" y="242" text-anchor="middle">LLM Agent</text>
+          <text x="424" y="260" text-anchor="middle">reason · plan · act</text>
+
+          <!-- the world, wireframe -->
+          <g class="wglobe">
+            <circle class="wg-limb" fill="#f3f5f4" stroke="#8a9492" cx="716" cy="160" r="64"/>
+            <ellipse class="wg-line" fill="none" stroke="#dfe4e1" cx="716" cy="160" rx="14" ry="64"/>
+            <ellipse class="wg-line" fill="none" stroke="#dfe4e1" cx="716" cy="160" rx="36" ry="64"/>
+            <ellipse class="wg-line" fill="none" stroke="#dfe4e1" cx="716" cy="160" rx="54" ry="64"/>
+            <ellipse class="wg-line" fill="none" stroke="#dfe4e1" cx="716" cy="160" rx="64" ry="14"/>
+            <ellipse class="wg-line" fill="none" stroke="#dfe4e1" cx="716" cy="160" rx="64" ry="36"/>
+            <ellipse class="wg-line" fill="none" stroke="#dfe4e1" cx="716" cy="160" rx="64" ry="54"/>
+          </g>
+          <text class="t-name" x="716" y="252" text-anchor="middle">Environment</text>
+          <text x="716" y="270" text-anchor="middle">tools · tasks · world</text>
+        </svg>
+      </figure>
+
+      <div class="cards-3 reveal">
+        <div class="card">
+          <svg class="icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <circle cx="20" cy="9" r="4.5"/>
+            <circle cx="9" cy="29" r="4.5"/>
+            <circle cx="31" cy="29" r="4.5"/>
+            <path d="M17.5 13l-6 11.5M22.5 13l6 11.5M13.5 29h13"/>
+          </svg>
+          <h3>Agentic LLM Systems</h3>
+          <p>Long-context reasoning, planning, tool use, and self-refinement in real-world grounded environments.</p>
+        </div>
+        <div class="card">
+          <svg class="icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 4l12 4.5v9c0 8-5 14.5-12 17.5C13 32 8 25.5 8 17.5v-9L20 4z"/>
+            <path d="M14.5 19.5l4 4 7-8"/>
+          </svg>
+          <h3>LLM Alignment</h3>
+          <p>Synthetic data, structured supervision, and preference-based training for human intent — with privacy and safety built in.</p>
+        </div>
+        <div class="card">
+          <svg class="icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M33 20a13 13 0 1 1-4-9.4"/>
+            <path d="M33 6v6h-6"/>
+            <circle cx="20" cy="20" r="3"/>
+          </svg>
+          <h3>RL for LLMs</h3>
+          <p>Training agents for sustained multi-turn interaction and long-horizon task completion.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="sec">
+  <div class="sec-grid">
+    <aside class="sec-aside">
+      <div class="reveal">
+        <span class="sec-num mono">03</span>
+        <h2 class="sec-label">Education</h2>
+      </div>
+    </aside>
+    <div class="sec-body">
+      <div class="edu-list">
+        <div class="edu-row reveal">
+          <div class="edu-when">2023 — present</div>
+          <div class="edu-what">
+            <div class="edu-title">B.S. in Mathematical and Physical Basic Science (Physics)</div>
+            <div class="edu-org">Tsinghua University</div>
+            <div class="edu-note">Minor in Artificial Intelligence</div>
+          </div>
+        </div>
+        <div class="edu-row reveal">
+          <div class="edu-when">Fall 2025</div>
+          <div class="edu-what">
+            <div class="edu-title">Exchange Student in Computer Science</div>
+            <div class="edu-org">UC San Diego</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% include experience.html %}
+
+{% include publications.html %}
+
+{% include blogs.html %}
+
+<section id="tokens" class="sec">
+  <div class="sec-grid">
+    <aside class="sec-aside">
+      <div class="reveal">
+        <span class="sec-num mono">07</span>
+        <h2 class="sec-label">Vibe<br>Coding</h2>
+      </div>
+    </aside>
+    <div class="sec-body">
+      <p class="lede reveal">
+        I build with agents, and agents run on <strong>tokens</strong>. Every chart below is live
+        telemetry from my own machines — every token my coding agents have read, cached, and written.
+      </p>
+
+      <div class="tok-stats reveal" id="tok-stats">
+        <div class="tok-stat" id="tok-egg" title="✳">
+          <div class="tok-num mono" data-stat="total">0</div>
+          <div class="tok-k">tokens, all time</div>
+        </div>
+        <div class="tok-stat">
+          <div class="tok-num mono" data-stat="hit">0</div>
+          <div class="tok-k">cache hit rate</div>
+        </div>
+        <div class="tok-stat">
+          <div class="tok-num mono" data-stat="value">0</div>
+          <div class="tok-k">api-equivalent value</div>
+        </div>
+        <div class="tok-stat">
+          <div class="tok-num mono" data-stat="out">0</div>
+          <div class="tok-k">tokens written back</div>
+        </div>
+      </div>
+
+      <figure class="tok-fig reveal" role="img" aria-label="Daily token throughput by model family, drawn as a layered stream.">
+        <canvas id="tok-river" height="300"></canvas>
+        <div class="tok-readout mono" id="tok-river-readout">&nbsp;</div>
+        <div class="tok-legend mono" id="tok-legend"></div>
+      </figure>
+
+      <div class="tok-duo">
+        <figure class="tok-fig reveal" role="img" aria-label="Composition of token spend: cache reads, cache writes, fresh input, and output.">
+          <svg id="tok-donut" viewBox="0 0 240 240"></svg>
+        </figure>
+        <figure class="tok-fig reveal" role="img" aria-label="Top models ranked by api-equivalent value.">
+          <div id="tok-bars"></div>
+        </figure>
+      </div>
+
+      <figure class="tok-fig reveal" role="img" aria-label="Calendar heatmap of daily token volume.">
+        <div class="tok-heat-wrap">
+          <svg id="tok-heat"></svg>
+        </div>
+        <div class="tok-readout mono" id="tok-heat-readout">&nbsp;</div>
+      </figure>
+
+      <div class="tok-pipe reveal" aria-label="How this data stays fresh: local agent logs flow through ccusage into a small JSON, then into these figures.">
+        <svg viewBox="0 0 760 92" xmlns="http://www.w3.org/2000/svg">
+          <path id="pipe-line" class="flow" d="M14,46 H746"/>
+          <circle class="dot" r="3"><animateMotion dur="4.2s" repeatCount="indefinite"><mpath href="#pipe-line"/></animateMotion></circle>
+          <g class="pipe-node"><rect x="20"  y="28" width="150" height="36" rx="9"/><text x="95"  y="50" text-anchor="middle">~/.claude/*.jsonl</text></g>
+          <g class="pipe-node"><rect x="240" y="28" width="110" height="36" rx="9"/><text x="295" y="50" text-anchor="middle">ccusage</text></g>
+          <g class="pipe-node"><rect x="420" y="28" width="120" height="36" rx="9"/><text x="480" y="50" text-anchor="middle">tokens.json</text></g>
+          <g class="pipe-node"><rect x="610" y="28" width="130" height="36" rx="9"/><text x="675" y="50" text-anchor="middle">this page ✳</text></g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>

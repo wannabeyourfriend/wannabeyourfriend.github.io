@@ -1,0 +1,30 @@
+<section id="notes" class="sec">
+  <div class="sec-grid">
+    <aside class="sec-aside">
+      <div class="reveal">
+        <span class="sec-num mono">06</span>
+        <h2 class="sec-label">Blogs<br>&amp; Notes</h2>
+      </div>
+    </aside>
+    <div class="sec-body">
+      {% for blog in site.data.blogs.blogs %}
+      <div class="note-row reveal">
+        <div class="note-date">{{ blog.date }}</div>
+        <div>
+          <h3 class="note-title">
+            {% if blog.pdf %}<a href="{{ blog.pdf }}" target="_blank" rel="noopener">{{ blog.title }}</a>
+            {% elsif blog.link %}<a href="{{ blog.link }}" target="_blank" rel="noopener">{{ blog.title }}</a>
+            {% else %}{{ blog.title }}{% endif %}
+          </h3>
+          {% if blog.summary %}<p class="note-sum">{{ blog.summary }}</p>{% endif %}
+          {% if blog.tags %}
+          <div class="note-tags">
+            {% for tag in blog.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

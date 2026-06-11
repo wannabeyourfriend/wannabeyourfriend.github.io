@@ -1,0 +1,13 @@
+_site
+.sass-cache
+Gemfile.lock
+*.gem
+.DS_Store
+.jekyll-cache
+git-update.sh
+ref/
+libs/
+cv/*.pdf
+cv/*.docx
+# generated local preview
+_preview.html

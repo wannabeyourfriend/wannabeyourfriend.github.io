@@ -1,0 +1,65 @@
+experience:
+  - role: "Intern"
+    org: "Looki"
+    org_link:
+    type: "Internship"
+    location: "Beijing, China"
+    arrangement: "On-site"
+    period: "Apr 2026 — Present"
+    start: "2026-04"
+    duration: "1 mo"
+    tags: ["Agentic AI", "Human-Centered AI", "Large Language Models"]
+    icon_letter: "L"
+    icon_bg: "#7c96a8"
+
+  - role: "Research Assistant"
+    org: "Carnegie Mellon University"
+    org_sub: "Department of Electrical and Computer Engineering"
+    org_link: "https://www.cmu.edu/"
+    type:
+    location: "Remote"
+    arrangement: "Remote"
+    period: "Feb 2026 — Present"
+    start: "2026-02"
+    duration: "3 mos"
+    tags: ["Agentic AI", "Large Language Models"]
+    icon_letter: "C"
+    icon_bg: "#2e3538"
+
+  - role: "AI Intern"
+    org: "MiroMind.ai"
+    org_link: "https://research.miromind.ai/"
+    type: "Internship"
+    location: "Beijing, China"
+    arrangement: "Hybrid"
+    period: "Jun 2025 — Jan 2026"
+    duration: "8 mos"
+    tags: ["Agentic AI", "Large Language Models"]
+    icon_letter: "M"
+    icon_bg: "#8e7f8f"
+
+  - role: "Research Assistant"
+    org: "Swartz Center for Computational Neuroscience"
+    org_sub: "UC San Diego"
+    org_link: "https://sccn.ucsd.edu/"
+    type:
+    location: "San Diego, California, United States"
+    arrangement: "On-site"
+    period: "Sep 2025 — Dec 2025"
+    duration: "4 mos"
+    tags: ["Human-Centered AI", "Human-Computer Interface", "Eye Tracking"]
+    icon_letter: "S"
+    icon_bg: "#6f7b78"
+
+  - role: "Research Assistant"
+    org: "Halıcıoğlu Data Science Institute"
+    org_sub: "UC San Diego (HDSI) — MixLab, advised by Dr. Zhen Wang"
+    org_link: "https://mixlab.ucsd.edu/"
+    type:
+    location: "San Diego, California, United States"
+    arrangement: "On-site"
+    period: "Sep 2025 — Dec 2025"
+    duration: "4 mos"
+    tags: ["Interactive AI", "Large Language Models"]
+    icon_letter: "H"
+    icon_bg: "#a89c82"

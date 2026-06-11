@@ -1,0 +1,38 @@
+<section id="experience" class="sec">
+  <div class="sec-grid">
+    <aside class="sec-aside">
+      <div class="reveal">
+        <span class="sec-num mono">04</span>
+        <h2 class="sec-label">Experience</h2>
+      </div>
+    </aside>
+    <div class="sec-body">
+      <div class="xp-list">
+        {% for item in site.data.experience.experience %}
+        <div class="xp reveal">
+          <div class="xp-badge" style="background: {{ item.icon_bg }};">{{ item.icon_letter }}</div>
+          <div class="xp-body">
+            <div class="xp-role">{{ item.role }}{% if item.type %} <span class="xp-type">· {{ item.type }}</span>{% endif %}</div>
+            <div class="xp-org">
+              {% if item.org_link %}<a href="{{ item.org_link }}" target="_blank" rel="noopener">{{ item.org }}</a>{% else %}{{ item.org }}{% endif %}
+              {% if item.org_sub %}<span class="xp-org-sub"> — {{ item.org_sub }}</span>{% endif %}
+            </div>
+            <div class="xp-meta">
+              <span>{{ item.period }}</span>
+              <span>·</span>
+              <span{% if item.start %} class="xp-dur" data-start="{{ item.start }}"{% endif %}>{{ item.duration }}</span>
+              {% if item.location %}<span>·</span><span>{{ item.location }}</span>{% endif %}
+              {% if item.arrangement %}<span>·</span><span>{{ item.arrangement }}</span>{% endif %}
+            </div>
+            {% if item.tags %}
+            <div class="xp-tags">
+              {% for tag in item.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

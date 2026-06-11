@@ -1,0 +1,12 @@
+blogs:
+  - title: "Machine Learning Course Notes - Learning Theory"
+    date: "2025-02-14"
+    summary: "Comprehensive notes on learning theory, covering PAC learning, VC dimension, and statistical learning foundations."
+    pdf: /assets/files/machine_learning_course_notes-learning-theory.pdf
+    tags: ["Machine Learning", "Learning Theory", "Course Notes"]
+
+  - title: "3D Visual Computing Course Notes"
+    date: "2025-02-14"
+    summary: "Notes on 3D visual computing, including geometry processing, rendering, and 3D reconstruction techniques."
+    pdf: /assets/files/3d_visual_computing_course_notes.pdf
+    tags: ["Computer Graphics", "3D Vision", "Course Notes"]

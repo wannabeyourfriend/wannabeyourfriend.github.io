@@ -1,0 +1,101 @@
+<section id="publications" class="sec">
+  <div class="sec-grid">
+    <aside class="sec-aside">
+      <div class="reveal">
+        <span class="sec-num mono">05</span>
+        <h2 class="sec-label">Publications</h2>
+        <p class="sec-sub">Papers, technical reports, and course projects.</p>
+      </div>
+    </aside>
+    <div class="sec-body">
+
+      <div class="pub-group">
+        <p class="pub-kicker">Papers</p>
+        {% for link in site.data.publications.publications %}
+        <div class="pub reveal">
+          <div class="pub-thumb">
+            {% if link.image %}<img src="{{ link.image }}" alt="Teaser figure for {{ link.title }}">{% endif %}
+            {% if link.conference_short %}<span class="pub-badge">{{ link.conference_short }}</span>{% endif %}
+          </div>
+          <div class="pub-info">
+            <h3 class="pub-title">
+              {% if link.pdf %}<a href="{{ link.pdf }}" target="_blank" rel="noopener">{{ link.title }}</a>
+              {% elsif link.page %}<a href="{{ link.page }}" target="_blank" rel="noopener">{{ link.title }}</a>
+              {% elsif link.code %}<a href="{{ link.code }}" target="_blank" rel="noopener">{{ link.title }}</a>
+              {% else %}{{ link.title }}{% endif %}
+            </h3>
+            {% if link.authors %}<div class="pub-authors">{{ link.authors }}</div>{% endif %}
+            <div class="pub-venue">{{ link.conference }}</div>
+            <div class="pub-links">
+              {% if link.pdf %}<a class="btn-link" href="{{ link.pdf }}" target="_blank" rel="noopener">PDF</a>{% endif %}
+              {% if link.code %}<a class="btn-link" href="{{ link.code }}" target="_blank" rel="noopener">Code</a>{% endif %}
+              {% if link.video %}<a class="btn-link" href="{{ link.video }}" target="_blank" rel="noopener">Video</a>{% endif %}
+              {% if link.page %}<a class="btn-link" href="{{ link.page }}" target="_blank" rel="noopener">arXiv</a>{% endif %}
+              {% if link.notes %}<span class="pub-note">{{ link.notes }}</span>{% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="pub-group">
+        <p class="pub-kicker">Technical Reports</p>
+        {% for link in site.data.publications.technical_reports %}
+        <div class="pub reveal">
+          <div class="pub-thumb">
+            {% if link.image %}<img src="{{ link.image }}" alt="Teaser figure for {{ link.title }}">{% endif %}
+            {% if link.conference_short %}<span class="pub-badge">{{ link.conference_short }}</span>{% endif %}
+          </div>
+          <div class="pub-info">
+            <h3 class="pub-title">
+              {% if link.pdf %}<a href="{{ link.pdf }}" target="_blank" rel="noopener">{{ link.title }}</a>
+              {% elsif link.page %}<a href="{{ link.page }}" target="_blank" rel="noopener">{{ link.title }}</a>
+              {% elsif link.code %}<a href="{{ link.code }}" target="_blank" rel="noopener">{{ link.title }}</a>
+              {% else %}{{ link.title }}{% endif %}
+            </h3>
+            {% if link.authors %}<div class="pub-authors">{{ link.authors }}</div>{% endif %}
+            <div class="pub-venue">{{ link.conference }}</div>
+            <div class="pub-links">
+              {% if link.pdf %}<a class="btn-link" href="{{ link.pdf }}" target="_blank" rel="noopener">PDF</a>{% endif %}
+              {% if link.code %}<a class="btn-link" href="{{ link.code }}" target="_blank" rel="noopener">Code</a>{% endif %}
+              {% if link.video %}<a class="btn-link" href="{{ link.video }}" target="_blank" rel="noopener">Video</a>{% endif %}
+              {% if link.page %}<a class="btn-link" href="{{ link.page }}" target="_blank" rel="noopener">arXiv</a>{% endif %}
+              {% if link.notes %}<span class="pub-note">{{ link.notes }}</span>{% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="pub-group">
+        <p class="pub-kicker">Course Projects</p>
+        {% for link in site.data.publications.course_projects %}
+        <div class="pub reveal">
+          <div class="pub-thumb">
+            {% if link.image %}<img src="{{ link.image }}" alt="Teaser figure for {{ link.title }}">{% endif %}
+            {% if link.conference_short %}<span class="pub-badge">{{ link.conference_short }}</span>{% endif %}
+          </div>
+          <div class="pub-info">
+            <h3 class="pub-title">
+              {% if link.pdf %}<a href="{{ link.pdf }}" target="_blank" rel="noopener">{{ link.title }}</a>
+              {% elsif link.page %}<a href="{{ link.page }}" target="_blank" rel="noopener">{{ link.title }}</a>
+              {% elsif link.code %}<a href="{{ link.code }}" target="_blank" rel="noopener">{{ link.title }}</a>
+              {% else %}{{ link.title }}{% endif %}
+            </h3>
+            {% if link.authors %}<div class="pub-authors">{{ link.authors }}</div>{% endif %}
+            <div class="pub-venue">{{ link.conference }}</div>
+            <div class="pub-links">
+              {% if link.pdf %}<a class="btn-link" href="{{ link.pdf }}" target="_blank" rel="noopener">PDF</a>{% endif %}
+              {% if link.code %}<a class="btn-link" href="{{ link.code }}" target="_blank" rel="noopener">Code</a>{% endif %}
+              {% if link.video %}<a class="btn-link" href="{{ link.video }}" target="_blank" rel="noopener">Video</a>{% endif %}
+              {% if link.page %}<a class="btn-link" href="{{ link.page }}" target="_blank" rel="noopener">arXiv</a>{% endif %}
+              {% if link.notes %}<span class="pub-note">{{ link.notes }}</span>{% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</section>
