@@ -105,6 +105,95 @@
     ctx.stroke();
   }
 
+  /* ----- places I've been, and the flights between them ----- */
+  var CITIES = {
+    beijing:     { lat: 39.90,  lon: 116.41, label: 'beijing' },
+    changsha:    { lat: 28.23,  lon: 112.97, label: 'changsha' },
+    sandiego:    { lat: 32.72,  lon: -117.16, label: 'san diego' },
+    losangeles:  { lat: 34.05,  lon: -118.24, label: 'los angeles' },
+    singapore:   { lat: 1.35,   lon: 103.82, label: 'singapore' },
+    addis:       { lat: 9.03,   lon: 38.74,  label: 'addis ababa' },
+    saopaulo:    { lat: -23.55, lon: -46.63, label: 'são paulo' },
+    salvador:    { lat: -12.97, lon: -38.50, label: 'salvador' }
+  };
+  var ROUTES = [
+    ['beijing', 'changsha'],
+    ['beijing', 'singapore'],
+    ['beijing', 'addis'],      // ethiopian airlines, the long way to brazil
+    ['addis', 'saopaulo'],
+    ['saopaulo', 'salvador'],
+    ['beijing', 'losangeles'], // the exchange semester
+    ['losangeles', 'sandiego']
+  ];
+
+  function slerp(a, b, f) {
+    var dot = a.x * b.x + a.y * b.y + a.z * b.z;
+    dot = Math.max(-1, Math.min(1, dot));
+    var om = Math.acos(dot);
+    if (om < 1e-6) return a;
+    var sa = Math.sin((1 - f) * om) / Math.sin(om);
+    var sb = Math.sin(f * om) / Math.sin(om);
+    return { x: a.x * sa + b.x * sb, y: a.y * sa + b.y * sb, z: a.z * sa + b.z * sb };
+  }
+
+  function drawRoutes() {
+    var i, k, key;
+    // arcs, gently lifted off the surface like real flight paths
+    ctx.strokeStyle = colors.arc;
+    ctx.lineWidth = 1;
+    for (i = 0; i < ROUTES.length; i++) {
+      var a = vec(CITIES[ROUTES[i][0]].lat, CITIES[ROUTES[i][0]].lon);
+      var b = vec(CITIES[ROUTES[i][1]].lat, CITIES[ROUTES[i][1]].lon);
+      var pts = [];
+      for (k = 0; k <= 36; k++) {
+        var f = k / 36;
+        var p = view(slerp(a, b, f));
+        p.scale = 1 + 0.07 * Math.sin(Math.PI * f); // cruise altitude
+        pts.push(p);
+      }
+      ctx.beginPath();
+      polyline(pts);
+      ctx.globalAlpha = 0.8;
+      ctx.stroke();
+      ctx.globalAlpha = 1;
+
+      // a little aircraft riding the arc
+      if (!reduced) {
+        var ph = (t * 0.06 + i * 0.41) % 1;
+        var fp = view(slerp(a, b, ph));
+        fp.scale = 1 + 0.07 * Math.sin(Math.PI * ph);
+        if (fp.z > 0.02) {
+          var fs = screen(fp, fp.scale);
+          ctx.beginPath();
+          ctx.arc(fs.x, fs.y, 1.6, 0, Math.PI * 2);
+          ctx.fillStyle = colors.pin;
+          ctx.fill();
+        }
+      }
+    }
+
+    // city pins + labels on the front hemisphere
+    ctx.font = '8.5px "JetBrains Mono", monospace';
+    ctx.textAlign = 'left';
+    for (key in CITIES) {
+      var c = CITIES[key];
+      var pv = view(vec(c.lat, c.lon));
+      if (pv.z <= 0.02) continue;
+      var sp = screen(pv);
+      ctx.beginPath();
+      ctx.arc(sp.x, sp.y, 2.2, 0, Math.PI * 2);
+      ctx.fillStyle = colors.pin;
+      ctx.globalAlpha = Math.min(1, pv.z * 2.5);
+      ctx.fill();
+      if (pv.z > 0.3) {
+        ctx.fillStyle = colors.label;
+        ctx.globalAlpha = Math.min(1, (pv.z - 0.3) * 2.2);
+        ctx.fillText(c.label, sp.x + 5, sp.y + 3);
+      }
+      ctx.globalAlpha = 1;
+    }
+  }
+
   /* ----- satellites: abstract companions on inclined orbits ----- */
   var SATS = [
     { radius: 1.24, incl: 58 * RAD,  phase: 0,   speed: 0.30 },
@@ -209,6 +298,7 @@
     ctx.clearRect(0, 0, W, H);
     drawMarks(now);
     drawGraticule();
+    drawRoutes();
     drawSatellites();
 
     requestAnimationFrame(frame);
