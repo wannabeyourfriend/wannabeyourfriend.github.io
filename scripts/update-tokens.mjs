@@ -125,14 +125,38 @@ if (existsSync(statsPath)) {
   console.log(`▸ per-model reconciliation: backfilled ${(backTok / 1e9).toFixed(2)}B / $${backCost.toFixed(2)} across ${backfillDays.length} days @ sonnet pricing`);
 }
 
-// grand total across both sources (the stat card reads this)
-totals.tok = days.reduce((a, d) => a + Object.values(d.f).reduce((b, v) => b + v[0], 0), 0);
-
 const models = Object.entries(perModel)
   .map(([name, v]) => ({ name, tok: v.tok, out: v.out, cost: Math.round(v.cost * 100) / 100 }))
   .sort((a, b) => b.cost - a.cost);
 
-totals.cost = Math.round(totals.cost * 100) / 100;
+// merge with the on-repo archive, then write it back. The archive is the
+// durable record: stats-cache.json is a cache Claude Code may reset (it did
+// on 2026-06-11, dropping Jan–Apr), and transcripts get cleaned up — so for
+// any day, whichever source saw MORE volume wins, and the union is saved.
+const archPath = join(root, 'assets', 'data', 'tokens-archive.json');
+if (existsSync(archPath)) {
+  const arch = JSON.parse(readFileSync(archPath, 'utf8'));
+  const byDate2 = new Map(days.map((d) => [d.d, d]));
+  for (const ad of arch.days || []) {
+    const cur = byDate2.get(ad.d);
+    const aTok = Object.values(ad.f).reduce((a, v) => a + v[0], 0);
+    const cTok = cur ? Object.values(cur.f).reduce((a, v) => a + v[0], 0) : 0;
+    if (!cur) { days.push(ad); byDate2.set(ad.d, ad); }
+    else if (aTok > cTok) { cur.f = ad.f; cur.cost = ad.cost; }
+  }
+  days.sort((a, b) => (a.d < b.d ? -1 : 1));
+  for (const am of arch.models || []) {
+    const m = models.find((x) => x.name === am.name);
+    if (!m) models.push(am);
+    else if (am.tok > m.tok) { m.tok = am.tok; m.cost = am.cost; m.out = am.out; }
+  }
+  models.sort((a, b) => b.cost - a.cost);
+}
+writeFileSync(archPath, JSON.stringify({ days, models }));
+
+// grand totals over the merged record (the stat cards read these)
+totals.tok = days.reduce((a, d) => a + Object.values(d.f).reduce((b, v) => b + v[0], 0), 0);
+totals.cost = Math.round(days.reduce((a, d) => a + (d.cost || 0), 0) * 100) / 100;
 
 const out = {
   synced: new Date().toISOString().slice(0, 10),

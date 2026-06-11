@@ -72,7 +72,17 @@
     var open = false;
     for (var i = 0; i < points.length; i++) {
       var p = points[i];
-      if (p && p.z > 0.001) {
+      var vis = false;
+      if (p) {
+        if (p.z > 0.001) vis = true;
+        else if (p.scale > 1) {
+          // lifted off the surface: still visible past the limb until the
+          // earth's disk actually occludes it
+          var sx = p.x * p.scale, sy = p.y * p.scale;
+          vis = sx * sx + sy * sy > 1.0002;
+        }
+      }
+      if (vis) {
         var s = screen(p, p.scale);
         if (!open) { ctx.moveTo(s.x, s.y); open = true; }
         else ctx.lineTo(s.x, s.y);
@@ -317,8 +327,8 @@
 
   /* ----- satellites: abstract companions on inclined orbits ----- */
   var SATS = [
-    { radius: 1.24, incl: 58 * RAD,  phase: 0,   speed: 0.30 },
-    { radius: 1.42, incl: -32 * RAD, phase: 2.4, speed: -0.20 }
+    { radius: 1.13, incl: 58 * RAD,  phase: 0,   speed: 0.30 },
+    { radius: 1.21, incl: -32 * RAD, phase: 2.4, speed: -0.20 }
   ];
 
   function orbitPoint(sat, theta) {
