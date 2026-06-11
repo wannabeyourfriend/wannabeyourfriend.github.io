@@ -327,8 +327,8 @@
 
   /* ----- satellites: abstract companions on inclined orbits ----- */
   var SATS = [
-    { radius: 1.13, incl: 58 * RAD,  phase: 0,   speed: 0.30 },
-    { radius: 1.21, incl: -32 * RAD, phase: 2.4, speed: -0.20 }
+    { radius: 1.13, incl: 0, phase: 0,   speed: 0.30 },
+    { radius: 1.21, incl: 0, phase: 2.4, speed: -0.20 }
   ];
 
   function orbitPoint(sat, theta) {
