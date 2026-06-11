@@ -9,7 +9,7 @@
   var ctx = canvas.getContext('2d');
 
   var RAD = Math.PI / 180;
-  var TILT = -23.4 * RAD; // Earth's obliquity, for charm
+  var TILT = 23.4 * RAD; // Earth's obliquity; positive tips the north pole toward you
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var BASE_SPEED = reduced ? 0 : 0.10; // rad / s
@@ -146,11 +146,97 @@
       var p = view(landDots[i]);
       if (p.z <= 0.01) continue;
       var s = screen(p);
-      ctx.globalAlpha = Math.min(1, p.z * 1.8);
+      var li = p.x * sunView.x + p.y * sunView.y + p.z * sunView.z;
+      var day = Math.max(0, Math.min(1, li * 6 + 0.5));   // soft twilight band
+      ctx.globalAlpha = Math.min(1, p.z * 1.8) * (0.42 + 0.58 * day);
       ctx.beginPath();
       ctx.arc(s.x, s.y, 1.1, 0, Math.PI * 2);
       ctx.fill();
     }
+    ctx.globalAlpha = 1;
+  }
+
+  /* ----- the sun: its true direction, from the actual UTC time -----
+     Low-precision solar ephemeris (good to ~0.01°): mean longitude and
+     anomaly since J2000 give the ecliptic longitude, hence declination and
+     the equation of time; the subsolar point follows from the wall clock.
+     So the night side you see IS tonight's night side. */
+  var sunModel = { x: 0, y: 0, z: 1 };
+  var sunView  = { x: 0, y: 0, z: 1 };
+
+  function updateSun() {
+    var now = new Date();
+    var n = now.getTime() / 86400000 - 10957.5;                 // days since J2000.0
+    var L = (((280.460 + 0.9856474 * n) % 360) + 360) % 360;    // mean longitude (deg)
+    var g = (357.528 + 0.9856003 * n) * RAD;                    // mean anomaly
+    var lam = (L + 1.915 * Math.sin(g) + 0.020 * Math.sin(2 * g)) * RAD;
+    var eps = 23.439 * RAD;
+    var dec = Math.asin(Math.sin(eps) * Math.sin(lam));         // declination
+    var ra = Math.atan2(Math.cos(eps) * Math.sin(lam), Math.cos(lam));
+    var eot = L * RAD - ra;                                     // equation of time
+    eot = Math.atan2(Math.sin(eot), Math.cos(eot));
+    var utcH = now.getUTCHours() + now.getUTCMinutes() / 60 + now.getUTCSeconds() / 3600;
+    var lonSS = -(utcH - 12) * 15 * RAD - eot;                  // subsolar longitude
+    sunModel = vec(dec / RAD, lonSS / RAD);
+  }
+  updateSun();
+  setInterval(updateSun, 60000);
+
+  // points on a geodesic circle of angular radius psi around model vector c
+  function geoCircle(c, psi, segs) {
+    var ref = Math.abs(c.y) < 0.9 ? { x: 0, y: 1, z: 0 } : { x: 1, y: 0, z: 0 };
+    var u = { x: c.y * ref.z - c.z * ref.y, y: c.z * ref.x - c.x * ref.z, z: c.x * ref.y - c.y * ref.x };
+    var ul = Math.hypot(u.x, u.y, u.z);
+    u = { x: u.x / ul, y: u.y / ul, z: u.z / ul };
+    var w = { x: c.y * u.z - c.z * u.y, y: c.z * u.x - c.x * u.z, z: c.x * u.y - c.y * u.x };
+    var cp = Math.cos(psi), sp = Math.sin(psi), pts = [];
+    for (var k = 0; k <= segs; k++) {
+      var ph = (k / segs) * Math.PI * 2;
+      var ca = Math.cos(ph), sa = Math.sin(ph);
+      pts.push(view({
+        x: c.x * cp + (u.x * ca + w.x * sa) * sp,
+        y: c.y * cp + (u.y * ca + w.y * sa) * sp,
+        z: c.z * cp + (u.z * ca + w.z * sa) * sp
+      }));
+    }
+    return pts;
+  }
+
+  // a fixed stipple grid for shading the night hemisphere
+  var nightDots = [];
+  (function () {
+    var STEP = 4.5;
+    for (var lat = -87; lat <= 87; lat += STEP) {
+      var ls = STEP / Math.cos(lat * RAD);
+      for (var lon = -180; lon < 180; lon += ls) nightDots.push(vec(lat, lon));
+    }
+  })();
+
+  function drawDayNight() {
+    // night side, stippled
+    ctx.fillStyle = colors.label;
+    for (var i = 0; i < nightDots.length; i++) {
+      var p = view(nightDots[i]);
+      if (p.z <= 0.01) continue;
+      var li = p.x * sunView.x + p.y * sunView.y + p.z * sunView.z;
+      if (li >= 0) continue;
+      var s = screen(p);
+      ctx.globalAlpha = 0.10 * Math.min(1, -li * 8) * Math.min(1, p.z * 2);
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, 0.9, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    // the terminator: the great circle 90° from the subsolar point
+    ctx.beginPath();
+    polyline(geoCircle(sunModel, Math.PI / 2, 72));
+    ctx.setLineDash([3, 4]);
+    ctx.strokeStyle = colors.limb;
+    ctx.globalAlpha = 0.55;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.setLineDash([]);
     ctx.globalAlpha = 1;
   }
 
@@ -351,12 +437,63 @@
     }
   })();
 
+  var moonTh = 4.0;   // true anomaly, advanced by Kepler's 2nd law in frame()
+
+  function drawSunGlyph(ex, ey) {
+    // the sun sits where its light actually comes from: project the real
+    // sun direction to the page and pin the glyph at the viewport edge
+    var dx = sunView.x, dy = -sunView.y;
+    var len = Math.hypot(dx, dy);
+    if (len < 0.05) return;                          // sun dead ahead/behind
+    dx /= len; dy /= len;
+    var MARGIN = 64;
+    var tEdge = Infinity;                            // ray -> viewport rectangle
+    if (dx > 0) tEdge = Math.min(tEdge, (MW - MARGIN - ex) / dx);
+    if (dx < 0) tEdge = Math.min(tEdge, (MARGIN - ex) / dx);
+    if (dy > 0) tEdge = Math.min(tEdge, (MH - MARGIN - ey) / dy);
+    if (dy < 0) tEdge = Math.min(tEdge, (MARGIN - ey) / dy);
+    if (!isFinite(tEdge) || tEdge < R * 1.35) return;
+    var sx = ex + dx * tEdge, sy = ey + dy * tEdge;
+
+    var dim = sunView.z < 0 ? 0.45 : 1;              // lit from behind the earth
+    mctx.strokeStyle = colors.arc;
+    mctx.fillStyle = colors.arc;
+    mctx.globalAlpha = 0.85 * dim;
+    mctx.beginPath();                                 // disk
+    mctx.arc(sx, sy, 15, 0, Math.PI * 2);
+    mctx.lineWidth = 1.2;
+    mctx.stroke();
+    for (var q = 0; q < 3; q++) {                     // dot-matrix body
+      var qr = 4.2 * (q + 1);
+      var qn = 6 * (q + 1);
+      for (var k = 0; k < qn; k++) {
+        var qa = (k / qn) * Math.PI * 2 + q * 0.35;
+        mctx.globalAlpha = (0.5 - q * 0.12) * dim;
+        mctx.beginPath();
+        mctx.arc(sx + Math.cos(qa) * qr, sy + Math.sin(qa) * qr, 0.9, 0, Math.PI * 2);
+        mctx.fill();
+      }
+    }
+    mctx.globalAlpha = 0.7 * dim;                     // rays
+    mctx.beginPath();
+    for (var rci = 0; rci < 12; rci++) {
+      var ra2 = (rci / 12) * Math.PI * 2 + (reduced ? 0 : t * 0.05);
+      mctx.moveTo(sx + Math.cos(ra2) * 20, sy + Math.sin(ra2) * 20);
+      mctx.lineTo(sx + Math.cos(ra2) * 26, sy + Math.sin(ra2) * 26);
+    }
+    mctx.lineWidth = 1;
+    mctx.stroke();
+    mctx.globalAlpha = 1;
+  }
+
   function drawMoonLayer() {
     mctx.clearRect(0, 0, MW, MH);
     var rect = canvas.getBoundingClientRect();
     var ex = rect.left + CX, ey = rect.top + CY;   // earth center, viewport coords
 
-    var th = 4.0 + t * M_SPEED * (warpT > 0 ? 6 : 1);
+    drawSunGlyph(ex, ey);
+
+    var th = moonTh;
     var A = 0.62 * Math.hypot(MW, MH);             // page-spanning semi-major axis
     var orad = A * (1 - M_ECC * M_ECC) / (1 + M_ECC * Math.cos(th));
     var ci = Math.cos(M_INCL), si = Math.sin(M_INCL);
@@ -380,7 +517,9 @@
     mctx.stroke();
     mctx.globalAlpha = 1;
 
-    // tidally locked: lon 0 keeps facing the earth as it orbits
+    // tidally locked: lon 0 keeps facing the earth as it orbits.
+    // Each dot is lit by the real sun direction — so the phase you see
+    // (new between earth and sun, full opposite) is the physics of phases.
     var cR = Math.cos(th + Math.PI), sR = Math.sin(th + Math.PI);
     mctx.fillStyle = colors.label;
     for (var i = 0; i < moonDots.length; i++) {
@@ -389,8 +528,11 @@
       var z = v.z * cR - v.x * sR;
       var p = tiltOnly({ x: x, y: v.y, z: z });
       if (p.z <= 0.04) continue;
+      var li = p.x * sunView.x + p.y * sunView.y + p.z * sunView.z;
+      var lit = Math.max(0, Math.min(1, li * 5 + 0.1));
+      var sun = 0.16 + 0.84 * lit;                  // 0.16 floor: earthshine
       var dr = (moonDots[i].mare ? 0.055 : 0.034) * mr;
-      mctx.globalAlpha = (moonDots[i].mare ? 0.55 : 0.22) * Math.min(1, p.z * 2);
+      mctx.globalAlpha = (moonDots[i].mare ? 0.55 : 0.22) * Math.min(1, p.z * 2) * sun;
       mctx.beginPath();
       mctx.arc(mx + p.x * mr, my - p.y * mr, dr, 0, Math.PI * 2);
       mctx.fill();
@@ -501,10 +643,18 @@
       if (Math.abs(vel) < 0.0001) vel = 0;
     }
 
+    sunView = view(sunModel);
+
+    // Kepler's 2nd law: the moon sweeps equal areas in equal times,
+    // so its angular rate goes as 1/r² along the ellipse
+    var rr = (1 - M_ECC * M_ECC) / (1 + M_ECC * Math.cos(moonTh));
+    moonTh += M_SPEED * (warpT > 0 ? 6 : 1) * dt / (rr * rr);
+
     ctx.clearRect(0, 0, W, H);
     drawMarks(now);
     drawGraticule();
     drawLand();
+    drawDayNight();
     drawRipples(dt);
     drawRoutes();
     drawSatellites();

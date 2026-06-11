@@ -26,7 +26,7 @@
   --globe-arc:    rgba(103, 130, 143, 0.55);
   --globe-pin:    #7e9aad;
   --globe-label:  #65706f;
-  --globe-land:   rgba(103, 130, 143, 0.42);
+  --globe-land:   rgba(70, 96, 110, 0.62);
 
   --serif: 'Source Serif 4', Charter, Georgia, serif;
   --sans:  'Schibsted Grotesk', -apple-system, 'Helvetica Neue', sans-serif;
@@ -58,7 +58,7 @@ html.claude {
   --globe-arc:    rgba(157, 184, 201, 0.6);
   --globe-pin:    #9db8c9;
   --globe-label:  #a7b1af;
-  --globe-land:   rgba(157, 184, 201, 0.38);
+  --globe-land:   rgba(157, 184, 201, 0.55);
 
   --shadow-lift: 0 1px 2px rgba(0, 0, 0, 0.5), 0 14px 32px rgba(0, 0, 0, 0.45);
 }
