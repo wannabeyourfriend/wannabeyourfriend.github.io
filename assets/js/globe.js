@@ -33,7 +33,6 @@
     colors.pin   = s.getPropertyValue('--globe-pin').trim()   || '#7e9aad';
     colors.label = s.getPropertyValue('--globe-label').trim() || '#65706f';
     colors.land  = s.getPropertyValue('--globe-land').trim()  || 'rgba(103,130,143,0.5)';
-    colors.moon  = s.getPropertyValue('--paper').trim()       || '#fdfefd';
   }
   readColors();
   window.addEventListener('themechange', readColors);
@@ -297,63 +296,134 @@
     }
   }
 
-  /* ----- the moon, on a wide inclined orbit ----- */
-  var MOON = { radius: 1.66, incl: 14 * RAD, phase: 1.1, speed: 0.12 };
+  /* ----- the moon: true size ratio, page-spanning orbit, dot-matrix -----
+     Real numbers where the page can afford them: radius = 0.273 earth radii,
+     inclination 5.1°, eccentricity 0.055. The real orbit radius (60.3 earth
+     radii ≈ 8400px) fits no screen, so the orbit is capped at page scale. */
+  var M_RATIO = 0.2727;
+  var M_ECC   = 0.055;
+  var M_INCL  = 5.1 * RAD;
+  var M_SPEED = reduced ? 0 : 0.08;
 
-  function drawMoon() {
-    // dashed orbit path, wider dashes than the satellites'
-    ctx.beginPath();
-    var open = false;
-    for (var a = 0; a <= 360; a += 3) {
-      var p = orbitPoint(MOON, a * RAD);
-      if (!occluded(p)) {
-        var s = screen(p);
-        if (!open) { ctx.moveTo(s.x, s.y); open = true; }
-        else ctx.lineTo(s.x, s.y);
-      } else open = false;
+  var mcv = document.createElement('canvas');
+  mcv.style.cssText = 'position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:40;';
+  mcv.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(mcv);
+  var mctx = mcv.getContext('2d');
+  var MW = 0, MH = 0;
+  function mresize() {
+    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    MW = window.innerWidth; MH = window.innerHeight;
+    mcv.width = Math.round(MW * dpr);
+    mcv.height = Math.round(MH * dpr);
+    mctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  mresize();
+  window.addEventListener('resize', mresize);
+
+  // near-side maria as spherical caps: [lat, lon, angular radius°]
+  var MARIA = [
+    [32.8, -15.6, 16],   // imbrium
+    [28.0,  17.5, 11],   // serenitatis
+    [8.5,   31.4, 13],   // tranquillitatis
+    [-7.8,  51.3,  9],   // fecunditatis
+    [17.0,  59.1,  8],   // crisium
+    [-21.3, -16.6, 10],  // nubium
+    [-24.4, -38.6,  7],  // humorum
+    [18.4, -57.4, 21],   // oceanus procellarum
+    [56.0,   1.4,  9],   // frigoris (east half)
+    [54.0, -35.0,  8]    // frigoris (west half)
+  ].map(function (m) { return { v: vec(m[0], m[1]), cos: Math.cos(m[2] * RAD) }; });
+
+  var moonDots = [];
+  (function () {
+    var STEP = 7;
+    for (var lat = -83; lat <= 83; lat += STEP) {
+      var ls = STEP / Math.cos(lat * RAD);
+      for (var lon = -180; lon < 180; lon += ls) {
+        var v = vec(lat, lon);
+        var mare = false;
+        for (var i = 0; i < MARIA.length; i++) {
+          if (v.x * MARIA[i].v.x + v.y * MARIA[i].v.y + v.z * MARIA[i].v.z > MARIA[i].cos) { mare = true; break; }
+        }
+        moonDots.push({ v: v, mare: mare });
+      }
     }
-    ctx.setLineDash([1, 9]);
-    ctx.strokeStyle = colors.line;
-    ctx.lineWidth = 1;
-    ctx.stroke();
-    ctx.setLineDash([]);
+  })();
 
-    var speed = MOON.speed * (warpT > 0 ? 8 : 1);
-    var mp = orbitPoint(MOON, MOON.phase + t * speed);
-    if (occluded(mp)) return;
-    var ms = screen(mp);
-    var zn = mp.z / MOON.radius;             // -1 .. 1 depth
-    var r = 6.2 + 1.8 * zn;                  // nearer = a touch larger
-    var al = zn > 0 ? 1 : 0.5;
+  function drawMoonLayer() {
+    mctx.clearRect(0, 0, MW, MH);
+    var rect = canvas.getBoundingClientRect();
+    var ex = rect.left + CX, ey = rect.top + CY;   // earth center, viewport coords
 
-    ctx.globalAlpha = al;
-    ctx.beginPath();                          // body, paper-toned
-    ctx.arc(ms.x, ms.y, r, 0, Math.PI * 2);
-    ctx.fillStyle = colors.moon;
-    ctx.fill();
-    ctx.strokeStyle = colors.limb;
-    ctx.lineWidth = 1.1;
-    ctx.stroke();
+    var th = 4.0 + t * M_SPEED * (warpT > 0 ? 6 : 1);
+    var A = 0.62 * Math.hypot(MW, MH);             // page-spanning semi-major axis
+    var orad = A * (1 - M_ECC * M_ECC) / (1 + M_ECC * Math.cos(th));
+    var ci = Math.cos(M_INCL), si = Math.sin(M_INCL);
+    var op = { x: Math.cos(th), y: 0, z: Math.sin(th) };
+    var ov = tiltOnly({ x: op.x, y: -op.z * si, z: op.z * ci });
+    var mx = ex + ov.x * orad, my = ey - ov.y * orad;
+    var mr = R * M_RATIO;
 
-    ctx.strokeStyle = colors.line;            // a few craters, hand-drawn
-    ctx.lineWidth = 0.9;
-    var CRATERS = [[-0.34, -0.22, 0.30], [0.28, 0.10, 0.20], [-0.05, 0.42, 0.15]];
-    for (var i = 0; i < CRATERS.length; i++) {
-      ctx.beginPath();
-      ctx.arc(ms.x + CRATERS[i][0] * r, ms.y + CRATERS[i][1] * r, CRATERS[i][2] * r, 0, Math.PI * 2);
-      ctx.stroke();
+    if (ov.z < 0) {                                 // passing behind the earth
+      var ddx = mx - ex, ddy = my - ey;
+      if (ddx * ddx + ddy * ddy < (R + mr) * (R + mr)) return;
     }
-    ctx.globalAlpha = 1;
+    if (mx < -mr - 40 || mx > MW + mr + 40 || my < -mr - 40 || my > MH + mr + 40) return;
+
+    // faint limb
+    mctx.beginPath();
+    mctx.arc(mx, my, mr, 0, Math.PI * 2);
+    mctx.strokeStyle = colors.limb;
+    mctx.globalAlpha = 0.5;
+    mctx.lineWidth = 1;
+    mctx.stroke();
+    mctx.globalAlpha = 1;
+
+    // tidally locked: lon 0 keeps facing the earth as it orbits
+    var cR = Math.cos(th + Math.PI), sR = Math.sin(th + Math.PI);
+    mctx.fillStyle = colors.label;
+    for (var i = 0; i < moonDots.length; i++) {
+      var v = moonDots[i].v;
+      var x = v.x * cR + v.z * sR;
+      var z = v.z * cR - v.x * sR;
+      var p = tiltOnly({ x: x, y: v.y, z: z });
+      if (p.z <= 0.04) continue;
+      var dr = (moonDots[i].mare ? 0.055 : 0.034) * mr;
+      mctx.globalAlpha = (moonDots[i].mare ? 0.55 : 0.22) * Math.min(1, p.z * 2);
+      mctx.beginPath();
+      mctx.arc(mx + p.x * mr, my - p.y * mr, dr, 0, Math.PI * 2);
+      mctx.fill();
+    }
+    mctx.globalAlpha = 1;
   }
 
-  /* ----- pointer ripples: the space answers back ----- */
+  /* ----- pointer ripples: waves that travel over the surface -----
+     The pointer is unprojected onto the sphere; each ripple is a growing
+     geodesic circle stored in MODEL space, so it spins with the earth and
+     slips around the limb like a real surface wave. */
   var ripples = [];
   var lastRX = -1, lastRY = -1;
 
-  function spawnRipple(x, y, strong) {
+  // screen -> model-space unit vector, or null when off the sphere
+  function unproject(px, py) {
+    var nx = (px - CX) / R, ny = (CY - py) / R;
+    var d2 = nx * nx + ny * ny;
+    if (d2 > 1) return null;
+    var v = { x: nx, y: ny, z: Math.sqrt(1 - d2) };  // view space, front hemisphere
+    var ct = Math.cos(-TILT), st = Math.sin(-TILT);  // undo tilt (rotate X by -TILT)
+    var y = v.y * ct - v.z * st;
+    var z = v.y * st + v.z * ct;
+    var c = Math.cos(-rot), s = Math.sin(-rot);      // undo spin (rotate Y by -rot)
+    return { x: v.x * c + z * s, y: y, z: z * c - v.x * s };
+  }
+
+  function spawnRipple(px, py, strong) {
     if (reduced) return;
-    ripples.push({ x: x, y: y, age: 0, life: strong ? 1.5 : 1.0, max: strong ? 96 : 52, a: strong ? 0.55 : 0.3 });
-    if (ripples.length > 24) ripples.shift();
+    var c = unproject(px, py);
+    if (!c) return;
+    ripples.push({ c: c, age: 0, life: strong ? 1.8 : 1.1, maxPsi: strong ? 1.5 : 0.6, a: strong ? 0.6 : 0.32 });
+    if (ripples.length > 16) ripples.shift();
   }
 
   function drawRipples(dt) {
@@ -363,17 +433,36 @@
       var f = rp.age / rp.life;
       if (f >= 1) { ripples.splice(i, 1); continue; }
       var ease = 1 - Math.pow(1 - f, 3);
-      var rr = 4 + ease * rp.max;
+
+      // orthonormal basis perpendicular to the ripple's center
+      var c = rp.c;
+      var ref = Math.abs(c.y) < 0.9 ? { x: 0, y: 1, z: 0 } : { x: 1, y: 0, z: 0 };
+      var u = { x: c.y * ref.z - c.z * ref.y, y: c.z * ref.x - c.x * ref.z, z: c.x * ref.y - c.y * ref.x };
+      var ul = Math.hypot(u.x, u.y, u.z);
+      u = { x: u.x / ul, y: u.y / ul, z: u.z / ul };
+      var w = { x: c.y * u.z - c.z * u.y, y: c.z * u.x - c.x * u.z, z: c.x * u.y - c.y * u.x };
+
       ctx.strokeStyle = colors.arc;
-      ctx.lineWidth = 1;
-      ctx.globalAlpha = rp.a * (1 - f);
-      ctx.beginPath();                        // flattened — a ripple in the spatial plane
-      ctx.ellipse(rp.x, rp.y, rr, rr * 0.34, 0, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.beginPath();                        // trailing inner ring
-      ctx.ellipse(rp.x, rp.y, rr * 0.55, rr * 0.55 * 0.34, 0, 0, Math.PI * 2);
-      ctx.globalAlpha = rp.a * (1 - f) * 0.5;
-      ctx.stroke();
+      ctx.lineWidth = 1.2;
+      for (var ring = 0; ring < 2; ring++) {           // wavefront + trailing crest
+        var psi = ease * rp.maxPsi * (ring ? 0.62 : 1);
+        if (psi < 0.02) continue;
+        var cp = Math.cos(psi), sp = Math.sin(psi);
+        var pts = [];
+        for (var k = 0; k <= 48; k++) {
+          var ph = (k / 48) * Math.PI * 2;
+          var ca = Math.cos(ph), sa = Math.sin(ph);
+          pts.push(view({
+            x: c.x * cp + (u.x * ca + w.x * sa) * sp,
+            y: c.y * cp + (u.y * ca + w.y * sa) * sp,
+            z: c.z * cp + (u.z * ca + w.z * sa) * sp
+          }));
+        }
+        ctx.globalAlpha = rp.a * (1 - f) * (ring ? 0.45 : 1);
+        ctx.beginPath();
+        polyline(pts);
+        ctx.stroke();
+      }
     }
     ctx.globalAlpha = 1;
   }
@@ -413,13 +502,13 @@
     }
 
     ctx.clearRect(0, 0, W, H);
-    drawRipples(dt);
     drawMarks(now);
     drawGraticule();
     drawLand();
+    drawRipples(dt);
     drawRoutes();
     drawSatellites();
-    drawMoon();
+    drawMoonLayer();
 
     requestAnimationFrame(frame);
   }
@@ -432,7 +521,7 @@
     canvas.height = Math.round(H * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     CX = W / 2; CY = H / 2;
-    R = Math.min(W, H) * 0.34;
+    R = Math.min(W, H) * 0.40;
   }
   resize();
   if (window.ResizeObserver) new ResizeObserver(resize).observe(canvas);
