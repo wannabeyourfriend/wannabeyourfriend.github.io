@@ -24,6 +24,10 @@ const FAMILIES = ['claude', 'codex'];
 const totals = { in: 0, out: 0, cc: 0, cr: 0, cost: 0 };
 const perModel = {};
 const BAD_ARCHIVE_DAY_FAMILIES = new Set([
+  // Same backfill issue as 2026-06-17: current ccusage has a real Codex record
+  // for this day, but no Claude record. The archived Claude value was an
+  // unverifiable 1.9B-token estimate created by the removed stats-cache path.
+  '2026-04-25:claude',
   // This value was produced by the removed stats-cache lifetime backfill path:
   // 2026-06-17 claude was inflated to 2.2B tokens even though current ccusage
   // has no daily record for it and stats-cache only has a small raw marker.
