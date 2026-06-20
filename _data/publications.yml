@@ -27,6 +27,7 @@ course_projects:
     conference_short: Course
     conference: Optimization Course Project
     code: https://github.com/wannabeyourfriend/optimization-course-project
+    image: ./assets/img/optimization-course-project.png
     notes: Independent
 
   - title: "Ego-embodied Reasoner: Egocentric Embodied Reasoning and Planning with MLLM via Reinforcement Learning"
