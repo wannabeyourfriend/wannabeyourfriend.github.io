@@ -3,7 +3,7 @@ publications:
     conference_short: Submission
     conference: In Submission
     authors: "<strong>Zixuan Wang<sup>1*</sup></strong>, Yufan Zhou<sup>2*</sup>, Jinzhou Tang<sup>3*</sup>, Chengjun Wu<sup>3</sup>, Adyasha Patra<sup>3</sup>, Lyumanshan Ye<sup>4</sup>, Zhaoxiang Feng<sup>3</sup>, Letian Peng<sup>3</sup>, Enze Ma<sup>3</sup>, Xinle Yu<sup>3</sup>, Fan Bai<sup>5</sup>, Zhengding Hu<sup>3</sup>, Jianyang Gu<sup>6</sup>, Zhao Wang<sup>3</sup>, Yufei Ding<sup>3</sup>, Jingbo Shang<sup>3</sup>, Tianmin Shu<sup>7</sup>, Zhiting Hu<sup>3</sup>, Zhen Wang<sup>3</sup>"
-    image: ./assets/img/s3-personalization.png
+    image: https://raw.githubusercontent.com/wannabeyourfriend/mind2dialogue/main/assets/overview.png
     notes: (*Equal Contribution, first three authors)
 
   - title: "Lightweight Neural Refinement for Drift Calibration in Eye Tracking Systems"
