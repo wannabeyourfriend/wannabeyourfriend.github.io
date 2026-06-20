@@ -4,7 +4,7 @@
    Data source: `npx ccusage daily --json` (reads ~/.claude/projects). */
 
 import { execSync } from 'node:child_process';
-import { writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -23,6 +23,50 @@ function family(name) {
 const FAMILIES = ['claude', 'codex'];
 const totals = { in: 0, out: 0, cc: 0, cr: 0, cost: 0 };
 const perModel = {};
+
+function round2(n) {
+  return Math.round(n * 100) / 100;
+}
+
+function cloneDay(day) {
+  const f = {};
+  for (const [name, value] of Object.entries(day.f || {})) {
+    f[name] = [value[0] || 0, round2(value[1] || 0)];
+  }
+  return { d: day.d, f, cost: round2(day.cost || 0) };
+}
+
+function mergeDay(current, archived) {
+  if (!current) return cloneDay(archived);
+  if (!archived) return cloneDay(current);
+
+  const f = {};
+  for (const name of new Set([...Object.keys(current.f || {}), ...Object.keys(archived.f || {})])) {
+    const c = current.f?.[name];
+    const a = archived.f?.[name];
+    const winner = !a || (c && c[0] >= a[0]) ? c : a;
+    f[name] = [winner[0] || 0, round2(winner[1] || 0)];
+  }
+  return {
+    d: current.d,
+    f,
+    cost: round2(Object.values(f).reduce((sum, value) => sum + (value[1] || 0), 0)),
+  };
+}
+
+function buildModelsFromDays(sourceDays, outByModel) {
+  const byModel = {};
+  for (const day of sourceDays) {
+    for (const [name, value] of Object.entries(day.f || {})) {
+      const model = (byModel[name] ||= { tok: 0, cost: 0, out: outByModel[name] || 0 });
+      model.tok += value[0] || 0;
+      model.cost += value[1] || 0;
+    }
+  }
+  return Object.entries(byModel)
+    .map(([name, value]) => ({ name, tok: value.tok, out: value.out, cost: round2(value.cost) }))
+    .sort((a, b) => b.cost - a.cost);
+}
 
 const days = raw.daily.map((d) => {
   const f = {};
@@ -48,12 +92,34 @@ const days = raw.daily.map((d) => {
   return { d: d.period, f, cost: Math.round((d.totalCost || 0) * 100) / 100 };
 });
 
-const models = Object.entries(perModel)
+let models = Object.entries(perModel)
   .map(([name, v]) => ({ name, tok: v.tok, out: v.out, cost: Math.round(v.cost * 100) / 100 }))
   .sort((a, b) => b.cost - a.cost);
 
-// Grand totals over exactly what ccusage returned. The stat cards read these,
-// so keep them aligned with `npx ccusage daily --json`.
+// Merge live ccusage output with the durable on-repo archive. ccusage can lose
+// older local transcript days; the archive preserves the last known values.
+const archPath = join(root, 'assets', 'data', 'tokens-archive.json');
+if (existsSync(archPath)) {
+  const arch = JSON.parse(readFileSync(archPath, 'utf8'));
+  const byDate = new Map(days.map((d) => [d.d, cloneDay(d)]));
+  const outByModel = Object.fromEntries(models.map((model) => [model.name, model.out || 0]));
+
+  for (const archived of arch.days || []) {
+    byDate.set(archived.d, mergeDay(byDate.get(archived.d), archived));
+  }
+
+  days.length = 0;
+  days.push(...[...byDate.values()].sort((a, b) => (a.d < b.d ? -1 : 1)));
+
+  for (const archived of arch.models || []) {
+    outByModel[archived.name] = Math.max(outByModel[archived.name] || 0, archived.out || 0);
+  }
+  models = buildModelsFromDays(days, outByModel);
+  writeFileSync(archPath, JSON.stringify({ days, models }));
+}
+
+// Grand totals over the merged record. in/out/cache segment totals remain the
+// live ccusage breakdown; archived days only have family-level totals.
 totals.tok = days.reduce((a, d) => a + Object.values(d.f).reduce((b, v) => b + v[0], 0), 0);
 totals.cost = Math.round(days.reduce((a, d) => a + (d.cost || 0), 0) * 100) / 100;
 
