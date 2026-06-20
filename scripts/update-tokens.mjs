@@ -23,6 +23,12 @@ function family(name) {
 const FAMILIES = ['claude', 'codex'];
 const totals = { in: 0, out: 0, cc: 0, cr: 0, cost: 0 };
 const perModel = {};
+const BAD_ARCHIVE_DAY_FAMILIES = new Set([
+  // This value was produced by the removed stats-cache lifetime backfill path:
+  // 2026-06-17 claude was inflated to 2.2B tokens even though current ccusage
+  // has no daily record for it and stats-cache only has a small raw marker.
+  '2026-06-17:claude',
+]);
 
 function round2(n) {
   return Math.round(n * 100) / 100;
@@ -34,6 +40,15 @@ function cloneDay(day) {
     f[name] = [value[0] || 0, round2(value[1] || 0)];
   }
   return { d: day.d, f, cost: round2(day.cost || 0) };
+}
+
+function cloneArchivedDay(day) {
+  const f = {};
+  for (const [name, value] of Object.entries(day.f || {})) {
+    if (BAD_ARCHIVE_DAY_FAMILIES.has(`${day.d}:${name}`)) continue;
+    f[name] = [value[0] || 0, round2(value[1] || 0)];
+  }
+  return { d: day.d, f, cost: round2(Object.values(f).reduce((sum, value) => sum + (value[1] || 0), 0)) };
 }
 
 function mergeDay(current, archived) {
@@ -105,7 +120,9 @@ if (existsSync(archPath)) {
   const outByModel = Object.fromEntries(models.map((model) => [model.name, model.out || 0]));
 
   for (const archived of arch.days || []) {
-    byDate.set(archived.d, mergeDay(byDate.get(archived.d), archived));
+    const cleanArchived = cloneArchivedDay(archived);
+    if (!Object.keys(cleanArchived.f).length) continue;
+    byDate.set(archived.d, mergeDay(byDate.get(archived.d), cleanArchived));
   }
 
   days.length = 0;
