@@ -26,6 +26,7 @@ course_projects:
   - title: "An Optimization View of DP LLM Fine-tuning: When Does Bias Correction Help, and Can the Optimizer Be Improved?"
     conference_short: Course
     conference: Optimization Course Project
+    pdf: /assets/files/optimization-course-report.pdf
     code: https://github.com/wannabeyourfriend/optimization-course-project
     image: ./assets/img/optimization-course-project.png
     notes: Independent
