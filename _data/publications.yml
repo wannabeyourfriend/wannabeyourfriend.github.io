@@ -1,10 +1,10 @@
 publications:
-  - title: "S³-Sim: Simulating Humans for Personalized Language Modeling"
+  - title: "Mind2Dialogue: Shared-Mind Simulation and Privileged Distillation for Personalization and Theory of Mind"
     conference_short: Submission
     conference: In Submission
-    authors: "Jinzhou Tang*, Yufan Zhou*, <strong>Zixuan Wang*</strong>, Zhaoxiang Feng, Xinle Yu, Steven Ngo, Zhengding Hu, Luoshang Pan, Lianhui Qin, Yufei Ding, Tianmin Shu, Jingbo Shang, Zhiting Hu, Zhen Wang†"
+    authors: "<strong>Zixuan Wang<sup>1*</sup></strong>, Yufan Zhou<sup>2*</sup>, Jinzhou Tang<sup>3*</sup>, Chengjun Wu<sup>3</sup>, Adyasha Patra<sup>3</sup>, Lyumanshan Ye<sup>4</sup>, Zhaoxiang Feng<sup>3</sup>, Letian Peng<sup>3</sup>, Enze Ma<sup>3</sup>, Xinle Yu<sup>3</sup>, Fan Bai<sup>5</sup>, Zhengding Hu<sup>3</sup>, Jianyang Gu<sup>6</sup>, Zhao Wang<sup>3</sup>, Yufei Ding<sup>3</sup>, Jingbo Shang<sup>3</sup>, Tianmin Shu<sup>7</sup>, Zhiting Hu<sup>3</sup>, Zhen Wang<sup>3</sup>"
     image: ./assets/img/s3-personalization.png
-    notes: (*Equal Contribution)
+    notes: (*Equal Contribution, first three authors)
 
   - title: "Lightweight Neural Refinement for Drift Calibration in Eye Tracking Systems"
     conference_short: Submission
@@ -23,6 +23,12 @@ technical_reports:
     notes: Project Contributor
 
 course_projects:
+  - title: "An Optimization View of DP LLM Fine-tuning: When Does Bias Correction Help, and Can the Optimizer Be Improved?"
+    conference_short: Course
+    conference: Optimization Course Project
+    code: https://github.com/wannabeyourfriend/optimization-course-project
+    notes: Independent
+
   - title: "Ego-embodied Reasoner: Egocentric Embodied Reasoning and Planning with MLLM via Reinforcement Learning"
     conference_short: Course
     conference: Deep Reinforcement Learning Course Project, Instructed by Professor Huazhe Xu
