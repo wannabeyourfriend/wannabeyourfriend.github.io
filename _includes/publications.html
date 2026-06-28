@@ -30,7 +30,7 @@
               {% if link.pdf %}<a class="btn-link" href="{{ link.pdf }}" target="_blank" rel="noopener">PDF</a>{% endif %}
               {% if link.code %}<a class="btn-link" href="{{ link.code }}" target="_blank" rel="noopener">Code</a>{% endif %}
               {% if link.video %}<a class="btn-link" href="{{ link.video }}" target="_blank" rel="noopener">Video</a>{% endif %}
-              {% if link.page %}<a class="btn-link" href="{{ link.page }}" target="_blank" rel="noopener">arXiv</a>{% endif %}
+              {% if link.page %}<a class="btn-link" href="{{ link.page }}" target="_blank" rel="noopener">{{ link.page_label | default: "arXiv" }}</a>{% endif %}
               {% if link.notes %}<span class="pub-note">{{ link.notes }}</span>{% endif %}
             </div>
           </div>
@@ -59,7 +59,7 @@
               {% if link.pdf %}<a class="btn-link" href="{{ link.pdf }}" target="_blank" rel="noopener">PDF</a>{% endif %}
               {% if link.code %}<a class="btn-link" href="{{ link.code }}" target="_blank" rel="noopener">Code</a>{% endif %}
               {% if link.video %}<a class="btn-link" href="{{ link.video }}" target="_blank" rel="noopener">Video</a>{% endif %}
-              {% if link.page %}<a class="btn-link" href="{{ link.page }}" target="_blank" rel="noopener">arXiv</a>{% endif %}
+              {% if link.page %}<a class="btn-link" href="{{ link.page }}" target="_blank" rel="noopener">{{ link.page_label | default: "arXiv" }}</a>{% endif %}
               {% if link.notes %}<span class="pub-note">{{ link.notes }}</span>{% endif %}
             </div>
           </div>
@@ -88,7 +88,7 @@
               {% if link.pdf %}<a class="btn-link" href="{{ link.pdf }}" target="_blank" rel="noopener">PDF</a>{% endif %}
               {% if link.code %}<a class="btn-link" href="{{ link.code }}" target="_blank" rel="noopener">Code</a>{% endif %}
               {% if link.video %}<a class="btn-link" href="{{ link.video }}" target="_blank" rel="noopener">Video</a>{% endif %}
-              {% if link.page %}<a class="btn-link" href="{{ link.page }}" target="_blank" rel="noopener">arXiv</a>{% endif %}
+              {% if link.page %}<a class="btn-link" href="{{ link.page }}" target="_blank" rel="noopener">{{ link.page_label | default: "arXiv" }}</a>{% endif %}
               {% if link.notes %}<span class="pub-note">{{ link.notes }}</span>{% endif %}
             </div>
           </div>
