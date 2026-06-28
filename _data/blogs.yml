@@ -1,4 +1,9 @@
 blogs:
+  - title: "Multi-hop QA Synthesis for Large-Scale Deep Research Agent"
+    date: "2/2026"
+    link: "https://app.notion.com/p/Multi-hop-QA-Synthesis-for-Large-Scale-Deep-Research-Agent-38ad937be18d80558889f9271a0cf6c0?source=copy_link"
+    tags: ["Multi-hop QA", "Data Synthesis", "Deep Research"]
+
   - title: "Stabilizing Large-scale MoE Agentic Reinforcement Learning Training"
     date: "1/2026"
     link: "https://app.notion.com/p/Stabilizing-Large-scale-MoE-Agentic-Reinforcement-Learning-Training-389d937be18d80d3bedeee9ade77781c?source=copy_link"
