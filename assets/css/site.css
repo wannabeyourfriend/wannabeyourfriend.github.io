@@ -353,6 +353,16 @@ img { max-width: 100%; display: block; }
 .sec-body p { font-family: var(--serif); font-size: 1.05rem; line-height: 1.7; color: var(--ink-soft); margin: 0 0 18px; }
 .sec-body strong { color: var(--ink); font-weight: 600; }
 
+.about-kicker {
+  margin: 38px 0 10px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  scroll-margin-top: 88px;
+}
+
 /* portrait card in About aside */
 .portrait {
   margin: 26px 0 0;
