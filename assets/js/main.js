@@ -137,7 +137,7 @@
     'research.txt': '1. Agentic LLM systems — reasoning, planning, tool use\n2. LLM alignment — synthetic data, preference training\n3. RL for LLMs — multi-turn, long-horizon agents',
     'secrets.txt': 'nice try. the real secrets are the friends we made along the way ✳'
   };
-  var SECTIONS = ['about', 'research', 'education', 'experience', 'publications', 'notes', 'tokens'];
+  var SECTIONS = ['about', 'research', 'education', 'experience', 'publications', 'blogs', 'tokens'];
 
   function buildTerm() {
     term = document.createElement('div');
