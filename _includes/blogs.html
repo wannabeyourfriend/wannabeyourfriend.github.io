@@ -8,12 +8,23 @@
     </aside>
     <div class="sec-body">
       {% for blog in site.data.blogs.blogs %}
-      <div class="note-row reveal">
+      {% assign blog_href = blog.pdf | default: blog.link %}
+      <div class="note-row{% if blog.image %} note-row--with-image{% endif %} reveal">
         <div class="note-date">{{ blog.date }}</div>
-        <div>
+        {% if blog.image %}
+          {% if blog_href %}
+          <a class="note-thumb" href="{{ blog_href }}" target="_blank" rel="noopener">
+            <img src="{{ blog.image }}" alt="Teaser figure for {{ blog.title }}">
+          </a>
+          {% else %}
+          <div class="note-thumb">
+            <img src="{{ blog.image }}" alt="Teaser figure for {{ blog.title }}">
+          </div>
+          {% endif %}
+        {% endif %}
+        <div class="note-main">
           <h3 class="note-title">
-            {% if blog.pdf %}<a href="{{ blog.pdf }}" target="_blank" rel="noopener">{{ blog.title }}</a>
-            {% elsif blog.link %}<a href="{{ blog.link }}" target="_blank" rel="noopener">{{ blog.title }}</a>
+            {% if blog_href %}<a href="{{ blog_href }}" target="_blank" rel="noopener">{{ blog.title }}</a>
             {% else %}{{ blog.title }}{% endif %}
           </h3>
           {% if blog.summary %}<p class="note-sum">{{ blog.summary }}</p>{% endif %}
