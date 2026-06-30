@@ -28,6 +28,15 @@ technical_reports:
     image: ./assets/img/mirothinker.png
     notes: Project Contributor
 
+selected_writing:
+  - title: "Efficient Large-scale RL for Deep Research Agent: Rollout Chunking with Context Compression"
+    conference_short: Selected Writing
+    conference: Technical Blog, February 2026
+    page: https://app.notion.com/p/RC3-Rollout-Chunking-with-Context-Compression-for-Accelerating-Large-Scale-Agentic-Deep-Research-RL-387d937be18d81bb84c9f71bffb75b65?source=copy_link
+    page_label: Technical Blog
+    image: ./assets/img/rc3-rollout-chunking.webp
+    notes: Core Contributor
+
 course_projects:
   - title: "An Optimization View of DP LLM Fine-tuning: When Does Bias Correction Help, and Can the Optimizer Be Improved?"
     conference_short: Course

@@ -5,7 +5,7 @@
       <div class="reveal">
         <span class="sec-num mono">04</span>
         <h2 class="sec-label">Research<br>Projects</h2>
-        <p class="sec-sub">Papers and technical reports.</p>
+        <p class="sec-sub">Papers, technical reports, and selected writing.</p>
       </div>
     </aside>
     <div class="sec-body">
@@ -20,6 +20,13 @@
       <div class="pub-group">
         <p class="pub-kicker">Technical Reports</p>
         {% for link in site.data.publications.technical_reports %}
+        {% include project-row.html link=link %}
+        {% endfor %}
+      </div>
+
+      <div class="pub-group">
+        <p class="pub-kicker">Selected Writing</p>
+        {% for link in site.data.publications.selected_writing %}
         {% include project-row.html link=link %}
         {% endfor %}
       </div>

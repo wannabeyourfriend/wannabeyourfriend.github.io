@@ -6,13 +6,6 @@ blogs:
     image: ./assets/img/blog-data-qa.png
     tags: ["Multi-hop QA", "Data Synthesis", "Deep Research"]
 
-  - title: "Efficient Large-scale RL for Deep Research Agent: Rollout Chunking with Context Compression"
-    date: "2/2026"
-    category: "Technical Blog"
-    link: "https://app.notion.com/p/RC3-Rollout-Chunking-with-Context-Compression-for-Accelerating-Large-Scale-Agentic-Deep-Research-RL-387d937be18d81bb84c9f71bffb75b65?source=copy_link"
-    image: ./assets/img/rc3-rollout-chunking.webp
-    tags: ["Deep Research", "Agentic RL", "Context Compression"]
-
   - title: "Stabilizing Large-scale MoE Agentic Reinforcement Learning Training"
     date: "1/2026"
     category: "Technical Blog"
