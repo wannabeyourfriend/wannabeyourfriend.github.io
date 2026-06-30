@@ -1,0 +1,24 @@
+{% assign item = include.link %}
+<div class="pub reveal">
+  <div class="pub-thumb">
+    {% if item.image %}<img src="{{ item.image }}" alt="Teaser figure for {{ item.title }}">{% endif %}
+    {% if item.conference_short %}<span class="pub-badge">{{ item.conference_short }}</span>{% endif %}
+  </div>
+  <div class="pub-info">
+    <h3 class="pub-title">
+      {% if item.pdf %}<a href="{{ item.pdf }}" target="_blank" rel="noopener">{{ item.title }}</a>
+      {% elsif item.page %}<a href="{{ item.page }}" target="_blank" rel="noopener">{{ item.title }}</a>
+      {% elsif item.code %}<a href="{{ item.code }}" target="_blank" rel="noopener">{{ item.title }}</a>
+      {% else %}{{ item.title }}{% endif %}
+    </h3>
+    {% if item.authors %}<div class="pub-authors">{{ item.authors }}</div>{% endif %}
+    <div class="pub-venue">{{ item.conference }}</div>
+    <div class="pub-links">
+      {% if item.pdf %}<a class="btn-link" href="{{ item.pdf }}" target="_blank" rel="noopener">PDF</a>{% endif %}
+      {% if item.code %}<a class="btn-link" href="{{ item.code }}" target="_blank" rel="noopener">Code</a>{% endif %}
+      {% if item.video %}<a class="btn-link" href="{{ item.video }}" target="_blank" rel="noopener">Video</a>{% endif %}
+      {% if item.page %}<a class="btn-link" href="{{ item.page }}" target="_blank" rel="noopener">{{ item.page_label | default: "arXiv" }}</a>{% endif %}
+      {% if item.notes %}<span class="pub-note">{{ item.notes }}</span>{% endif %}
+    </div>
+  </div>
+</div>

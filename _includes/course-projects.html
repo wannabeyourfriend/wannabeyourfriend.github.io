@@ -1,0 +1,16 @@
+<section id="course-projects" class="sec">
+  <div class="sec-grid">
+    <aside class="sec-aside">
+      <div class="reveal">
+        <span class="sec-num mono">06</span>
+        <h2 class="sec-label">Course<br>Projects</h2>
+        <p class="sec-sub">Selected coursework and class projects.</p>
+      </div>
+    </aside>
+    <div class="sec-body">
+      {% for link in site.data.publications.course_projects %}
+      {% include project-row.html link=link %}
+      {% endfor %}
+    </div>
+  </div>
+</section>

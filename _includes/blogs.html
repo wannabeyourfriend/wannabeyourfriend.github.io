@@ -4,38 +4,26 @@
       <div class="reveal">
         <span class="sec-num mono">05</span>
         <h2 class="sec-label">Blogs</h2>
+        <p class="sec-sub">Technical blogs and course notes.</p>
       </div>
     </aside>
     <div class="sec-body">
-      {% for blog in site.data.blogs.blogs %}
-      {% assign blog_href = blog.pdf | default: blog.link %}
-      <div class="note-row{% if blog.image %} note-row--with-image{% endif %} reveal">
-        <div class="note-date">{{ blog.date }}</div>
-        {% if blog.image %}
-          {% if blog_href %}
-          <a class="note-thumb" href="{{ blog_href }}" target="_blank" rel="noopener">
-            <img src="{{ blog.image }}" alt="Teaser figure for {{ blog.title }}">
-          </a>
-          {% else %}
-          <div class="note-thumb">
-            <img src="{{ blog.image }}" alt="Teaser figure for {{ blog.title }}">
-          </div>
-          {% endif %}
-        {% endif %}
-        <div class="note-main">
-          <h3 class="note-title">
-            {% if blog_href %}<a href="{{ blog_href }}" target="_blank" rel="noopener">{{ blog.title }}</a>
-            {% else %}{{ blog.title }}{% endif %}
-          </h3>
-          {% if blog.summary %}<p class="note-sum">{{ blog.summary }}</p>{% endif %}
-          {% if blog.tags %}
-          <div class="note-tags">
-            {% for tag in blog.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
-          </div>
-          {% endif %}
-        </div>
+      {% assign tech_blogs = site.data.blogs.blogs | where: "category", "Technical Blog" %}
+      {% assign course_notes = site.data.blogs.blogs | where: "category", "Course Note" %}
+
+      <div class="pub-group">
+        <p class="pub-kicker">Technical Blogs</p>
+        {% for blog in tech_blogs %}
+        {% include blog-row.html blog=blog %}
+        {% endfor %}
       </div>
-      {% endfor %}
+
+      <div class="pub-group">
+        <p class="pub-kicker">Course Notes</p>
+        {% for blog in course_notes %}
+        {% include blog-row.html blog=blog %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 </section>

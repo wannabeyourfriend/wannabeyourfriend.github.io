@@ -513,7 +513,14 @@ img { max-width: 100%; display: block; }
   padding: 3px 10px;
 }
 
-/* ---------- Publications ---------- */
+/* ---------- Projects ---------- */
+.anchor-alias {
+  position: relative;
+  top: -72px;
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
 .pub-group { margin-top: 34px; }
 .pub-group:first-of-type { margin-top: 6px; }
 .pub-kicker {

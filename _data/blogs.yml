@@ -1,18 +1,28 @@
 blogs:
   - title: "Multi-hop QA Synthesis for Large-Scale Deep Research Agent"
     date: "2/2026"
+    category: "Technical Blog"
     link: "https://app.notion.com/p/Multi-hop-QA-Synthesis-for-Large-Scale-Deep-Research-Agent-38ad937be18d80558889f9271a0cf6c0?source=copy_link"
     image: ./assets/img/blog-data-qa.png
     tags: ["Multi-hop QA", "Data Synthesis", "Deep Research"]
 
+  - title: "Efficient Large-scale RL for Deep Research Agent: Rollout Chunking with Context Compression"
+    date: "2/2026"
+    category: "Technical Blog"
+    link: "https://app.notion.com/p/RC3-Rollout-Chunking-with-Context-Compression-for-Accelerating-Large-Scale-Agentic-Deep-Research-RL-387d937be18d81bb84c9f71bffb75b65?source=copy_link"
+    image: ./assets/img/rc3-rollout-chunking.webp
+    tags: ["Deep Research", "Agentic RL", "Context Compression"]
+
   - title: "Stabilizing Large-scale MoE Agentic Reinforcement Learning Training"
     date: "1/2026"
+    category: "Technical Blog"
     link: "https://app.notion.com/p/Stabilizing-Large-scale-MoE-Agentic-Reinforcement-Learning-Training-389d937be18d80d3bedeee9ade77781c?source=copy_link"
     image: ./assets/img/blog-moe.png
     tags: ["MoE", "Reinforcement Learning", "Agentic Training"]
 
   - title: "3D Visual Computing Course Notes"
     date: "5/2025"
+    category: "Course Note"
     summary: "Notes on 3D visual computing, including geometry processing, rendering, and 3D reconstruction techniques."
     pdf: /assets/files/3d_visual_computing_course_notes.pdf
     image: ./assets/img/blog-3d-visual-computing.png
@@ -20,6 +30,7 @@ blogs:
 
   - title: "Machine Learning Course Notes - Learning Theory"
     date: "1/2025"
+    category: "Course Note"
     summary: "Comprehensive notes on learning theory, covering PAC learning, VC dimension, and statistical learning foundations."
     pdf: /assets/files/machine_learning_course_notes-learning-theory.pdf
     image: ./assets/img/blog-ml-note.png
