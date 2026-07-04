@@ -1,10 +1,15 @@
 publications:
+  - title: "Harness RL is Meta-Learning: Training to Self-Improve at Test Time"
+    conference_short: Submission
+    conference: In Submission
+    authors: "Alvin Zhang, Zixuan Wang, Xuecheng Liu, Fahim Tajwar, Ruslan Salakhutdinov, Daniel Khashabi, Yuda Song, Andrea Zanette"
+    image: ./assets/img/harness-rl-meta-learning.png
+
   - title: "Mind2Dialogue: Shared-Mind Simulation and Privileged Distillation for Personalization and Theory of Mind"
     conference_short: Submission
     conference: In Submission
-    authors: "<strong>Zixuan Wang<sup>1*</sup></strong>, Yufan Zhou<sup>2*</sup>, Jinzhou Tang<sup>3*</sup>, Chengjun Wu<sup>3</sup>, Adyasha Patra<sup>3</sup>, Lyumanshan Ye<sup>4</sup>, Zhaoxiang Feng<sup>3</sup>, Letian Peng<sup>3</sup>, Enze Ma<sup>3</sup>, Xinle Yu<sup>3</sup>, Fan Bai<sup>5</sup>, Zhengding Hu<sup>3</sup>, Jianyang Gu<sup>6</sup>, Zhao Wang<sup>3</sup>, Yufei Ding<sup>3</sup>, Jingbo Shang<sup>3</sup>, Tianmin Shu<sup>7</sup>, Zhiting Hu<sup>3</sup>, Zhen Wang<sup>3</sup>"
+    authors: "Zixuan Wang, Yufan Zhou, Jinzhou Tang, Chengjun Wu, Adyasha Patra, Lyumanshan Ye, Zhaoxiang Feng, Letian Peng, Enze Ma, Xinle Yu, Fan Bai, Zhengding Hu, Jianyang Gu, Zhao Wang, Yufei Ding, Jingbo Shang, Tianmin Shu, Zhiting Hu, Zhen Wang"
     image: https://raw.githubusercontent.com/wannabeyourfriend/mind2dialogue/main/assets/overview.png
-    notes: (*Equal Contribution)
 
   - title: "Lightweight Neural Refinement for Drift Calibration in Eye Tracking Systems"
     conference_short: Submission
@@ -16,7 +21,7 @@ publications:
   - title: "MEMPROBE: Probing Long-Term Agent Memory via Hidden User-State Recovery"
     conference_short: Submission
     conference: In Submission
-    authors: "Enze Ma<sup>1</sup>, Yufan Zhou<sup>2</sup>, Wei-Chieh Huang<sup>1</sup>, Jie Yang<sup>1</sup>, Huanhuan Ma<sup>1</sup>, Zixuan Wang<sup>3</sup>, Chengze Li<sup>1</sup>, Chunyu Miao<sup>1</sup>, Philip S. Yu<sup>1</sup>, Zhen Wang<sup>3</sup>"
+    authors: "Enze Ma, Yufan Zhou, Wei-Chieh Huang, Jie Yang, Huanhuan Ma, Zixuan Wang, Chengze Li, Chunyu Miao, Philip S. Yu, Zhen Wang"
     image: ./assets/img/memprobe.png
 
 technical_reports:
