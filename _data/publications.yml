@@ -2,14 +2,15 @@ publications:
   - title: "Harness RL is Meta-Learning: Training to Self-Improve at Test Time"
     conference_short: Submission
     conference: In Submission
-    authors: "Alvin Zhang, Zixuan Wang, Xuecheng Liu, Fahim Tajwar, Ruslan Salakhutdinov, Daniel Khashabi, Yuda Song, Andrea Zanette"
+    authors: "Alvin Zhang, <strong>Zixuan Wang</strong>, Xuecheng Liu, Fahim Tajwar, Ruslan Salakhutdinov, Daniel Khashabi, Yuda Song, Andrea Zanette"
     image: ./assets/img/harness-rl-meta-learning.png
 
   - title: "Mind2Dialogue: Shared-Mind Simulation and Privileged Distillation for Personalization and Theory of Mind"
     conference_short: Submission
     conference: In Submission
-    authors: "Zixuan Wang, Yufan Zhou, Jinzhou Tang, Chengjun Wu, Adyasha Patra, Lyumanshan Ye, Zhaoxiang Feng, Letian Peng, Enze Ma, Xinle Yu, Fan Bai, Zhengding Hu, Jianyang Gu, Zhao Wang, Yufei Ding, Jingbo Shang, Tianmin Shu, Zhiting Hu, Zhen Wang"
+    authors: "<strong>Zixuan Wang*</strong>, Yufan Zhou*, Jinzhou Tang*, Chengjun Wu, Adyasha Patra, Lyumanshan Ye, Zhaoxiang Feng, Letian Peng, Enze Ma, Xinle Yu, Fan Bai, Zhengding Hu, Jianyang Gu, Zhao Wang, Yufei Ding, Jingbo Shang, Tianmin Shu, Zhiting Hu, Zhen Wang"
     image: https://raw.githubusercontent.com/wannabeyourfriend/mind2dialogue/main/assets/overview.png
+    notes: (*Equal Contribution)
 
   - title: "Lightweight Neural Refinement for Drift Calibration in Eye Tracking Systems"
     conference_short: Submission
@@ -21,7 +22,7 @@ publications:
   - title: "MEMPROBE: Probing Long-Term Agent Memory via Hidden User-State Recovery"
     conference_short: Submission
     conference: In Submission
-    authors: "Enze Ma, Yufan Zhou, Wei-Chieh Huang, Jie Yang, Huanhuan Ma, Zixuan Wang, Chengze Li, Chunyu Miao, Philip S. Yu, Zhen Wang"
+    authors: "Enze Ma, Yufan Zhou, Wei-Chieh Huang, Jie Yang, Huanhuan Ma, <strong>Zixuan Wang</strong>, Chengze Li, Chunyu Miao, Philip S. Yu, Zhen Wang"
     image: ./assets/img/memprobe.png
 
 technical_reports:
