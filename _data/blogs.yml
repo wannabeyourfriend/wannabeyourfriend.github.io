@@ -1,4 +1,12 @@
 blogs:
+  - title: "Recovering Summarized CoT from Claude"
+    date: "7/2026"
+    category: "Technical Blog"
+    link: "https://app.notion.com/p/Recovering-Summarized-CoT-from-Claude-39ad937be18d80c094f9f49d30a70cdb?source=copy_link"
+    image: ./assets/img/blog-cot.png
+    tags: ["Chain-of-Thought"]
+
+
   - title: "Multi-hop QA Synthesis for Large-Scale Deep Research Agent"
     date: "2/2026"
     category: "Technical Blog"
@@ -12,6 +20,8 @@ blogs:
     link: "https://app.notion.com/p/Stabilizing-Large-scale-MoE-Agentic-Reinforcement-Learning-Training-389d937be18d80d3bedeee9ade77781c?source=copy_link"
     image: ./assets/img/blog-moe.png
     tags: ["MoE", "Reinforcement Learning", "Agentic Training"]
+
+  
 
   - title: "3D Visual Computing Course Notes"
     date: "5/2025"
