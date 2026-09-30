@@ -29,16 +29,6 @@ experience:
     icon: "/assets/img/miromind.png"
 
   - role: "Research Assistant"
-    org: "Swartz Center for Computational Neuroscience"
-    org_sub: "UC San Diego"
-    org_link: "https://sccn.ucsd.edu/"
-    type:
-    period: "Sep 2025 — Dec 2025"
-    duration: "4 mos"
-    tags: ["Human-Centered AI", "Human-Computer Interface", "Eye Tracking"]
-    icon: "/assets/img/ucsd.ico"
-
-  - role: "Research Assistant"
     org: "Halıcıoğlu Data Science Institute"
     org_sub: "UC San Diego (HDSI) — MixLab, advised by Dr. Zhen Wang"
     org_link: "https://mixlab.ucsd.edu/"
