@@ -1,32 +1,54 @@
 publications:
-  - title: "Harness RL is Meta-Learning: Training to Self-Improve at Test Time"
-    conference_short: Submission
-    conference: In Submission
-    authors: "Alvin Zhang, <strong>Zixuan Wang</strong>, Xuecheng Liu, Fahim Tajwar, Ruslan Salakhutdinov, Daniel Khashabi, Yuda Song, Andrea Zanette"
-    image: ./assets/img/harness-rl-meta-learning.png
+  - title: "Harness Learning Enables Generalizable Test-Time Adaptation"
+    conference_short: LLA Workshop
+    conference: "COLM 2026 LLA Workshop — Accepted, Spotlight Oral"
+    authors: "Alvin Zhang*, Xuecheng Liu*, <strong>Zixuan Wang*</strong>, Fahim Tajwar, Daman Arora, Ruslan Salakhutdinov, Daniel Khashabi, Yuda Song, Andrea Zanette"
+    page: https://arxiv.org/abs/2609.35738
+    pdf: https://arxiv.org/pdf/2609.35738
+    project: https://harness-learning.az04bz.chatgpt.site/
+    summary: "Training a proposer to adapt a solver's executable harness from execution feedback, with transfer to unseen tasks."
+    image: ./assets/img/harness-learning.png
+    diagram: true
+    notes: "* Equal contribution"
 
-  - title: "Mind2Dialogue: Shared-Mind Simulation and Privileged Distillation for Personalization and Theory of Mind"
-    conference_short: Submission
-    conference: In Submission
-    authors: "<strong>Zixuan Wang*</strong>, Yufan Zhou*, Jinzhou Tang*, Chengjun Wu, Adyasha Patra, Lyumanshan Ye, Zhaoxiang Feng, Letian Peng, Enze Ma, Xinle Yu, Fan Bai, Zhengding Hu, Jianyang Gu, Zhao Wang, Yufei Ding, Jingbo Shang, Tianmin Shu, Zhiting Hu, Zhen Wang"
-    image: https://raw.githubusercontent.com/wannabeyourfriend/mind2dialogue/main/assets/overview.png
+  - title: "Mind2Dialogue: Training Human-Aware Language Models by Simulating User Mental States"
+    conference_short: UserSim Workshop
+    conference: "NeurIPS 2026 UserSim Workshop — Accepted"
+    workshop_title: "Mind2Dialogue: Training Human-Aware Language Models through Shared-State User Simulation"
+    authors: "<strong>Zixuan Wang*</strong>, Yufan Zhou*, Jinzhou Tang*, Xinle Yu, Chengjun Wu, Lyumanshan Ye, Zhaoxiang Feng, Letian Peng, Adyasha Patra, Fan Bai, Enze Ma, Zhengding Hu, Jianyang Gu, Zhao Wang, Yufei Ding, Jingbo Shang, Tianmin Shu, Zhiting Hu, Zhen Wang"
+    page: https://arxiv.org/abs/2609.15972
+    pdf: https://arxiv.org/pdf/2609.15972
+    project: https://wannabeyourfriend.github.io/mind2dialogue/
+    code: https://github.com/wannabeyourfriend/mind2dialogue
+    dataset: https://huggingface.co/datasets/wannabeyourfriend-hf/mind2dialogue
+    summary: "Shared-state user simulation provides privileged supervision for personalization and theory-of-mind reasoning."
+    image: ./assets/img/mind2dialogue.png
+    diagram: true
     notes: (*Equal Contribution)
 
-  - title: "Lightweight Neural Refinement for Drift Calibration in Eye Tracking Systems"
-    conference_short: Submission
-    conference: In Submission
-    authors: "Liu Jiaqi*, <strong>Zixuan Wang*</strong>, Yuhong Zhang, Dingkang Liang, Jane Hanqi Li, Tzyy-Ping Jung, Gert Cauwenberghs†"
+  - title: "Drift Calibration in Geometric Eye Tracking Systems"
+    conference_short: Preprint
+    conference: "Preprint, 2026"
+    authors: "Jiaqi Liu*, <strong>Zixuan Wang*</strong>, Yuhong Zhang, Dingkang Liang, Jane Hanqi Li, Tzyy-Ping Jung, Gert Cauwenberghs†"
+    page: https://arxiv.org/abs/2608.29739
+    pdf: https://arxiv.org/pdf/2608.29739
+    code: https://github.com/wannabeyourfriend/gaze-refine-net
+    summary: "A calibration-focused eye-tracking dataset and lightweight neural refinement for residual gaze error."
     image: ./assets/img/chi-eyetrack.png
     notes: (*Equal Contribution)
 
-  - title: "MEMPROBE: Probing Long-Term Agent Memory via Hidden User-State Recovery"
-    conference_short: Submission
-    conference: In Submission
+  - title: "MemAudit: Auditing Long-Term Agent Memory via Hidden User-State Recovery"
+    conference_short: Preprint
+    conference: "Preprint, 2026"
     authors: "Enze Ma, Yufan Zhou, Wei-Chieh Huang, Jie Yang, Huanhuan Ma, <strong>Zixuan Wang</strong>, Chengze Li, Chunyu Miao, Philip S. Yu, Zhen Wang"
     image: ./assets/img/memprobe.png
+    page: https://arxiv.org/abs/2606.24595
+    pdf: https://arxiv.org/pdf/2606.24595
+    code: https://github.com/sora1998/MemProbe
+    summary: "The MEMPROBE benchmark measures how much hidden user state can be recovered from an agent's long-term memory."
 
 technical_reports:
-  - title: "MiroThinker: Pushing the Performance Boundaries of Open-Source Research Agents"
+  - title: "MiroThinker: Pushing the Performance Boundaries of Open-Source Research Agents via Model, Context, and Interactive Scaling"
     conference_short: Technical Report
     conference: Preprint, arXiv:2511.11793
     page: https://arxiv.org/abs/2511.11793
@@ -35,10 +57,10 @@ technical_reports:
     notes: Project Contributor
 
 selected_writing:
-  - title: "Efficient Large-scale RL for Deep Research Agent: Rollout Chunking with Context Compression"
+  - title: "RC3: Rollout Chunking with Context Compression for Accelerating Long-Horizon Reinforcement Learning"
     conference_short: Selected Writing
     conference: Technical Blog, February 2026
-    page: https://app.notion.com/p/RC3-Rollout-Chunking-with-Context-Compression-for-Accelerating-Large-Scale-Agentic-Deep-Research-RL-387d937be18d81bb84c9f71bffb75b65?source=copy_link
+    page: https://marble-hyssop-6ce.notion.site/RC3-Rollout-Chunking-with-Context-Compression-387d937be18d81bb84c9f71bffb75b65
     page_label: Technical Blog
     image: ./assets/img/rc3-rollout-chunking.webp
     notes: Core Contributor

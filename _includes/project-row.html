@@ -1,6 +1,6 @@
 {% assign item = include.link %}
 <div class="pub reveal">
-  <div class="pub-thumb">
+  <div class="pub-thumb{% if item.diagram %} pub-thumb-diagram{% endif %}">
     {% if item.image %}<img src="{{ item.image }}" alt="Teaser figure for {{ item.title }}">{% endif %}
     {% if item.conference_short %}<span class="pub-badge">{{ item.conference_short }}</span>{% endif %}
   </div>
@@ -13,11 +13,15 @@
     </h3>
     {% if item.authors %}<div class="pub-authors">{{ item.authors }}</div>{% endif %}
     <div class="pub-venue">{{ item.conference }}</div>
+    {% if item.workshop_title %}<div class="pub-version">Workshop version: {{ item.workshop_title }}</div>{% endif %}
+    {% if item.summary %}<div class="pub-summary">{{ item.summary }}</div>{% endif %}
     <div class="pub-links">
       {% if item.pdf %}<a class="btn-link" href="{{ item.pdf }}" target="_blank" rel="noopener">PDF</a>{% endif %}
       {% if item.code %}<a class="btn-link" href="{{ item.code }}" target="_blank" rel="noopener">Code</a>{% endif %}
       {% if item.video %}<a class="btn-link" href="{{ item.video }}" target="_blank" rel="noopener">Video</a>{% endif %}
       {% if item.page %}<a class="btn-link" href="{{ item.page }}" target="_blank" rel="noopener">{{ item.page_label | default: "arXiv" }}</a>{% endif %}
+      {% if item.project %}<a class="btn-link" href="{{ item.project }}" target="_blank" rel="noopener">Project</a>{% endif %}
+      {% if item.dataset %}<a class="btn-link" href="{{ item.dataset }}" target="_blank" rel="noopener">Dataset</a>{% endif %}
       {% if item.notes %}<span class="pub-note">{{ item.notes }}</span>{% endif %}
     </div>
   </div>

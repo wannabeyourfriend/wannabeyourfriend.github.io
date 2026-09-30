@@ -6,15 +6,16 @@ email: zixuan.alex.wang@outlook.com
 
 # Search Engine Optimization (SEO)
 # The following information is used to improve the website traffic from search engines, e.g., Google.
-keywords: Zixuan Wang, Alex Wang, LLM agents, alignment, reinforcement learning, Tsinghua University
-description: Zixuan (Alex) Wang — Physics undergraduate at Tsinghua University researching human-centered AI, LLM agents, alignment, and reinforcement learning.
+keywords: Zixuan Wang, Alex Wang, LLM agents, agent evaluation, personalization, reinforcement learning, Tsinghua University
+description: Zixuan (Alex) Wang — Mathematics and Physics undergraduate at Tsinghua University with a minor in Artificial Intelligence, researching agentic reinforcement learning, agent evaluation, and LLM personalization.
 canonical: https://wannabeyourfriend.github.io/
 
 # Links
 # If you don't need one of them, you may delete the corresponding line.
 # google_scholar: https://scholar.google.com/
-cv_link: https://docs.google.com/document/d/14xG5IFI1ip6jU2G3sKsqXScM5CAMMWz_4u13GrKA58Y/edit?usp=sharing
+cv_link: /assets/files/Zixuan_Wang_Grad_Apply.pdf
 github_link: https://github.com/wannabeyourfriend
+huggingface: https://huggingface.co/wannabeyourfriend-hf
 linkedin: https://www.linkedin.com/in/zixuan-wang-6b6b233b2
 # twitter: https://x.com/username
 # rednote: https://www.xiaohongshu.com/user/profile/
