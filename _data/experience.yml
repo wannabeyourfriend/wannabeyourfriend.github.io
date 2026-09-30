@@ -10,9 +10,8 @@ experience:
     icon: "/assets/img/looki.svg"
 
   - role: "Research Assistant"
-    org: "Carnegie Mellon University"
-    org_sub: "Department of Electrical and Computer Engineering"
-    org_link: "https://www.cmu.edu/"
+    org: "CMU Zanette's Lab"
+    org_link: "https://azanette.com/"
     type:
     period: "Apr 2026 — Sep 2026"
     duration: "6 mos"
