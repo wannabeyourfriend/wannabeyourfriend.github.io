@@ -236,7 +236,7 @@ img { max-width: 100%; display: block; }
   font-family: var(--serif);
   font-optical-sizing: auto;
   font-weight: 550;
-  font-size: clamp(2.5rem, 5.4vw, 4.1rem);
+  font-size: clamp(1.8rem, 3.6vw, 2.8rem);
   line-height: 1.06;
   letter-spacing: -0.022em;
   margin: 0 0 26px;
