@@ -392,13 +392,11 @@
     }
   }
 
-  /* ----- the moon: true size ratio, page-spanning orbit, dot-matrix -----
-     Real numbers where the page can afford them: radius = 0.273 earth radii,
-     inclination 5.1°, eccentricity 0.055. The real orbit radius (60.3 earth
-     radii ≈ 8400px) fits no screen, so the orbit is capped at page scale. */
+  /* ----- the moon: a circular display orbit, dot-matrix -----
+     Keep the Moon/Earth size ratio, but compress the orbit for the page.
+     The orbit faces the viewer so its path is circular on screen. */
   var M_RATIO = 0.2727;
-  var M_ECC   = 0.055;
-  var M_INCL  = 5.1 * RAD;
+  var M_ORBIT = 1.6; // earth radii; enough clearance for the moon's disk
   var M_SPEED = reduced ? 0 : 0.08;
 
   var mcv = document.createElement('canvas');
@@ -447,75 +445,29 @@
     }
   })();
 
-  var moonTh = 4.0;   // true anomaly, advanced by Kepler's 2nd law in frame()
-
-  function drawSunGlyph(ex, ey) {
-    // the sun sits where its light actually comes from: project the real
-    // sun direction to the page and pin the glyph at the viewport edge
-    var dx = sunView.x, dy = -sunView.y;
-    var len = Math.hypot(dx, dy);
-    if (len < 0.05) return;                          // sun dead ahead/behind
-    dx /= len; dy /= len;
-    var MARGIN = 64;
-    var tEdge = Infinity;                            // ray -> viewport rectangle
-    if (dx > 0) tEdge = Math.min(tEdge, (MW - MARGIN - ex) / dx);
-    if (dx < 0) tEdge = Math.min(tEdge, (MARGIN - ex) / dx);
-    if (dy > 0) tEdge = Math.min(tEdge, (MH - MARGIN - ey) / dy);
-    if (dy < 0) tEdge = Math.min(tEdge, (MARGIN - ey) / dy);
-    if (!isFinite(tEdge) || tEdge < R * 1.35) return;
-    var sx = ex + dx * tEdge, sy = ey + dy * tEdge;
-
-    var dim = sunView.z < 0 ? 0.45 : 1;              // lit from behind the earth
-    mctx.strokeStyle = colors.arc;
-    mctx.fillStyle = colors.arc;
-    mctx.globalAlpha = 0.85 * dim;
-    mctx.beginPath();                                 // disk
-    mctx.arc(sx, sy, 15, 0, Math.PI * 2);
-    mctx.lineWidth = 1.2;
-    mctx.stroke();
-    for (var q = 0; q < 3; q++) {                     // dot-matrix body
-      var qr = 4.2 * (q + 1);
-      var qn = 6 * (q + 1);
-      for (var k = 0; k < qn; k++) {
-        var qa = (k / qn) * Math.PI * 2 + q * 0.35;
-        mctx.globalAlpha = (0.5 - q * 0.12) * dim;
-        mctx.beginPath();
-        mctx.arc(sx + Math.cos(qa) * qr, sy + Math.sin(qa) * qr, 0.9, 0, Math.PI * 2);
-        mctx.fill();
-      }
-    }
-    mctx.globalAlpha = 0.7 * dim;                     // rays
-    mctx.beginPath();
-    for (var rci = 0; rci < 12; rci++) {
-      var ra2 = (rci / 12) * Math.PI * 2 + (reduced ? 0 : t * 0.05);
-      mctx.moveTo(sx + Math.cos(ra2) * 20, sy + Math.sin(ra2) * 20);
-      mctx.lineTo(sx + Math.cos(ra2) * 26, sy + Math.sin(ra2) * 26);
-    }
-    mctx.lineWidth = 1;
-    mctx.stroke();
-    mctx.globalAlpha = 1;
-  }
+  var moonTh = 2.4;   // angle around the circular display orbit
 
   function drawMoonLayer() {
     mctx.clearRect(0, 0, MW, MH);
     var rect = canvas.getBoundingClientRect();
-    var ex = rect.left + CX, ey = rect.top + CY;   // earth center, viewport coords
-
-    drawSunGlyph(ex, ey);
+    var ex = rect.left + rect.width / 2, ey = rect.top + rect.height / 2;
+    var earthR = R * rect.width / W;
 
     var th = moonTh;
-    var A = 0.62 * Math.hypot(MW, MH);             // page-spanning semi-major axis
-    var orad = A * (1 - M_ECC * M_ECC) / (1 + M_ECC * Math.cos(th));
-    var ci = Math.cos(M_INCL), si = Math.sin(M_INCL);
-    var op = { x: Math.cos(th), y: 0, z: Math.sin(th) };
-    var ov = tiltOnly({ x: op.x, y: -op.z * si, z: op.z * ci });
-    var mx = ex + ov.x * orad, my = ey - ov.y * orad;
-    var mr = R * M_RATIO;
+    var orad = earthR * M_ORBIT;
+    var mx = ex + Math.cos(th) * orad, my = ey - Math.sin(th) * orad;
+    var mr = earthR * M_RATIO;
 
-    if (ov.z < 0) {                                 // passing behind the earth
-      var ddx = mx - ex, ddy = my - ey;
-      if (ddx * ddx + ddy * ddy < (R + mr) * (R + mr)) return;
-    }
+    // Draw the same circle used to position the moon.
+    mctx.beginPath();
+    mctx.arc(ex, ey, orad, 0, Math.PI * 2);
+    mctx.setLineDash([2, 6]);
+    mctx.strokeStyle = colors.line;
+    mctx.globalAlpha = 0.45;
+    mctx.lineWidth = 1;
+    mctx.stroke();
+    mctx.setLineDash([]);
+    mctx.globalAlpha = 1;
     if (mx < -mr - 40 || mx > MW + mr + 40 || my < -mr - 40 || my > MH + mr + 40) return;
 
     // faint limb
@@ -530,13 +482,12 @@
     // tidally locked: lon 0 keeps facing the earth as it orbits.
     // Each dot is lit by the real sun direction — so the phase you see
     // (new between earth and sun, full opposite) is the physics of phases.
-    var cR = Math.cos(th + Math.PI), sR = Math.sin(th + Math.PI);
+    var cR = Math.cos(th), sR = Math.sin(th);
     mctx.fillStyle = colors.label;
     for (var i = 0; i < moonDots.length; i++) {
       var v = moonDots[i].v;
-      var x = v.x * cR + v.z * sR;
-      var z = v.z * cR - v.x * sR;
-      var p = tiltOnly({ x: x, y: v.y, z: z });
+      // The local z axis faces Earth; the orbit normal faces the viewer.
+      var p = { x: -v.x * sR - v.z * cR, y: v.x * cR - v.z * sR, z: -v.y };
       if (p.z <= 0.04) continue;
       var li = p.x * sunView.x + p.y * sunView.y + p.z * sunView.z;
       var lit = Math.max(0, Math.min(1, li * 5 + 0.1));
@@ -655,10 +606,7 @@
 
     sunView = view(sunModel);
 
-    // Kepler's 2nd law: the moon sweeps equal areas in equal times,
-    // so its angular rate goes as 1/r² along the ellipse
-    var rr = (1 - M_ECC * M_ECC) / (1 + M_ECC * Math.cos(moonTh));
-    moonTh += M_SPEED * (warpT > 0 ? 6 : 1) * dt / (rr * rr);
+    moonTh += M_SPEED * (warpT > 0 ? 6 : 1) * dt;
 
     ctx.clearRect(0, 0, W, H);
     drawMarks(now);

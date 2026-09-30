@@ -499,12 +499,11 @@ img { max-width: 100%; display: block; }
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #f4f7f6;
-  font-family: var(--sans);
-  font-weight: 600;
-  font-size: 1.05rem;
+  background: #fdfefd;
+  border: 1px solid var(--line);
   transition: transform 0.35s var(--ease-out);
 }
+.xp-badge img { width: 32px; height: 32px; object-fit: contain; }
 .xp:hover .xp-badge { transform: rotate(-6deg) scale(1.06); }
 .xp-role { font-weight: 600; font-size: 1.02rem; letter-spacing: -0.01em; }
 .xp-role .xp-type { font-weight: 500; color: var(--gray-mute); }

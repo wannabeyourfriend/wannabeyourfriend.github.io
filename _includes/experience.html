@@ -10,7 +10,7 @@
       <div class="xp-list">
         {% for item in site.data.experience.experience %}
         <div class="xp reveal">
-          <div class="xp-badge" style="background: {{ item.icon_bg }};">{{ item.icon_letter }}</div>
+          <div class="xp-badge"><img src="{{ item.icon }}" alt="" width="32" height="32" loading="lazy"></div>
           <div class="xp-body">
             <div class="xp-role">{{ item.role }}{% if item.type %} <span class="xp-type">· {{ item.type }}</span>{% endif %}</div>
             <div class="xp-org">

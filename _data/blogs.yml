@@ -2,7 +2,7 @@ blogs:
   - title: "Recovering Summarized CoT from Claude"
     date: "7/2026"
     category: "Technical Blog"
-    link: "https://app.notion.com/p/Recovering-Summarized-CoT-from-Claude-39ad937be18d80c094f9f49d30a70cdb?source=copy_link"
+    link: "https://marble-hyssop-6ce.notion.site/Recovering-Claude-Reasoning-Methods-Case-Studies-39ad937be18d80c094f9f49d30a70cdb?pvs=73"
     image: ./assets/img/blog-cot.png
     tags: ["Chain-of-Thought"]
 
