@@ -60,7 +60,7 @@ selected_writing:
   - title: "RC3: Rollout Chunking with Context Compression for Accelerating Long-Horizon Reinforcement Learning"
     conference_short: Selected Writing
     conference: Technical Blog, February 2026
-    page: https://marble-hyssop-6ce.notion.site/RC3-Rollout-Chunking-with-Context-Compression-387d937be18d81bb84c9f71bffb75b65
+    page: https://marble-hyssop-6ce.notion.site/RC3-Rollout-Chunking-with-Context-Compression-387d937be18d81bb84c9f71bffb75b65?pvs=73
     page_label: Technical Blog
     image: ./assets/img/rc3-rollout-chunking.webp
     notes: Core Contributor

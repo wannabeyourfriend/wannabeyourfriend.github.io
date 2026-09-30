@@ -10,14 +10,14 @@ blogs:
   - title: "Multi-hop QA Synthesis for Large-Scale Deep Research Agent"
     date: "2/2026"
     category: "Technical Blog"
-    link: "https://app.notion.com/p/Multi-hop-QA-Synthesis-for-Large-Scale-Deep-Research-Agent-38ad937be18d80558889f9271a0cf6c0?source=copy_link"
+    link: "https://marble-hyssop-6ce.notion.site/Multi-hop-QA-Synthesis-for-Deep-Research-Agents-38ad937be18d80558889f9271a0cf6c0?pvs=73"
     image: ./assets/img/blog-data-qa.png
     tags: ["Multi-hop QA", "Data Synthesis", "Deep Research"]
 
   - title: "Stabilizing Large-scale MoE Agentic Reinforcement Learning Training"
     date: "1/2026"
     category: "Technical Blog"
-    link: "https://app.notion.com/p/Stabilizing-Large-scale-MoE-Agentic-Reinforcement-Learning-Training-389d937be18d80d3bedeee9ade77781c?source=copy_link"
+    link: "https://marble-hyssop-6ce.notion.site/Stabilizing-MoE-Agentic-RL-with-Router-Replay-389d937be18d80d3bedeee9ade77781c?pvs=73"
     image: ./assets/img/blog-moe.png
     tags: ["MoE", "Reinforcement Learning", "Agentic Training"]
 
