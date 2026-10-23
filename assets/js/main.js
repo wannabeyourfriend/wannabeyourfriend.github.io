@@ -96,7 +96,7 @@
     document.documentElement.classList.toggle('claude', on);
     try { localStorage.setItem('theme', on ? 'claude' : 'ivory'); } catch (e) {}
     window.dispatchEvent(new Event('themechange'));
-    if (!quiet) toast(on ? 'night mode — easy on the eyes ☾' : 'back to the mist ☀');
+    if (!quiet) toast(on ? 'night mode, easy on the eyes ☾' : 'back to the mist ☀');
   }
   var typed = '';
   window.addEventListener('keydown', function (e) {
@@ -133,8 +133,8 @@
   /* ---------- egg 4: the ` terminal ---------- */
   var term = null, termOut = null, termIn = null;
   var FILES = {
-    'about.txt': 'Zixuan (Alex) Wang — Physics undergrad @ Tsinghua, AI minor.\nHuman-centered AI: LLM agents, alignment, RL.\nCurrently RA @ CMU (ECE), advised by Prof. Andrea Zanette.',
-    'research.txt': '1. Agentic LLM systems — reasoning, planning, tool use\n2. LLM alignment — synthetic data, preference training\n3. RL for LLMs — multi-turn, long-horizon agents',
+    'about.txt': 'Zixuan (Alex) Wang, Mathematics and Physics undergraduate at Tsinghua, with a minor in AI.\nI study LLM agents, agentic reinforcement learning, and personalization.\nPreviously a research assistant at CMU, advised by Prof. Andrea Zanette.',
+    'research.txt': '1. Reliable and scalable LLM agents\n2. Learning from interaction and harness adaptation\n3. Memory, personalization, and agent evaluation',
     'secrets.txt': 'nice try. the real secrets are the friends we made along the way ✳'
   };
   var SECTIONS = ['about', 'research', 'education', 'experience', 'research-projects', 'blogs', 'course-projects', 'tokens'];
@@ -189,7 +189,7 @@
           '  <span class="accent">clear</span>, <span class="accent">exit</span>\n');
         break;
       case 'whoami':
-        print('LLM researcher building systems that harness the power of language.\nundergraduate @ tsinghua university. saxophone on weekends. 🎷\n');
+        print('Zixuan (Alex) Wang, undergraduate at Tsinghua University.\nInterested in building reliable and scalable LLM agents.\nsaxophone on weekends. 🎷\n');
         break;
       case 'ls':
         print('<span class="ok">' + Object.keys(FILES).join('  ') + '</span>\nsections/: ' + SECTIONS.join('  ') + '\n');
@@ -224,9 +224,9 @@
       case 'tokens':
         if (window.__tokens) {
           print('<span class="ok">' + window.__tokens.stats() + '</span>');
-          print('<span class="accent">token 即生产力</span> — tokens are productivity ✳\n');
+          print('<span class="accent">token 即生产力</span>: tokens are productivity ✳\n');
           window.__tokens.rain();
-        } else print('telemetry still loading — try again in a second\n');
+        } else print('telemetry is still loading. try again in a second\n');
         break;
       case 'sudo':
         print('<span class="accent">permission denied:</span> this incident will be reported to absolutely no one.\n');
@@ -241,7 +241,7 @@
         toggleTerm(false);
         break;
       default:
-        print('command not found: ' + cmd.replace(/</g, '&lt;') + ' — try <span class="accent">help</span>\n');
+        print('command not found: ' + cmd.replace(/</g, '&lt;') + '. try <span class="accent">help</span>\n');
     }
   }
 
@@ -265,7 +265,7 @@
   if (window.console && console.log) {
     console.log(
       '%c✳%c hello, curious one.\n' +
-      'eggs: click my name ×5 · type "claude" · konami code · press ` · §07 hides a rain\n' +
+      'eggs: click my name ×5, type "claude", konami code, press `, §07 hides a rain\n' +
       'source: https://github.com/wannabeyourfriend/wannabeyourfriend.github.io',
       'color:#8aa6b5;font-size:28px;', 'color:inherit;font-size:12px;'
     );

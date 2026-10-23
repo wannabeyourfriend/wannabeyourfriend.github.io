@@ -1,5 +1,5 @@
 blogs:
-  - title: "Context Management for Long-Horizon Agents"
+  - title: "Context Management for Long Horizon Agents"
     category: "Technical Blog"
     link: "https://marble-hyssop-6ce.notion.site/Context-Management-for-Long-Horizon-Agents-3f6d937be18d810f9d2fc76b60b971c2"
     tags: ["Context Management", "LLM Agents"]
@@ -9,17 +9,17 @@ blogs:
     category: "Technical Blog"
     link: "https://marble-hyssop-6ce.notion.site/Recovering-Claude-Reasoning-Methods-Case-Studies-39ad937be18d80c094f9f49d30a70cdb?pvs=73"
     image: ./assets/img/blog-cot.png
-    tags: ["Chain-of-Thought"]
+    tags: ["Chain of Thought"]
 
 
-  - title: "Multi-hop QA Synthesis for Large-Scale Deep Research Agent"
+  - title: "Multi Hop QA Synthesis for Large Scale Deep Research Agent"
     date: "2/2026"
     category: "Technical Blog"
     link: "https://marble-hyssop-6ce.notion.site/Multi-hop-QA-Synthesis-for-Deep-Research-Agents-38ad937be18d80558889f9271a0cf6c0?pvs=73"
     image: ./assets/img/blog-data-qa.png
-    tags: ["Multi-hop QA", "Data Synthesis", "Deep Research"]
+    tags: ["Multi Hop QA", "Data Synthesis", "Deep Research"]
 
-  - title: "Stabilizing Large-scale MoE Agentic Reinforcement Learning Training"
+  - title: "Stabilizing Large Scale MoE Agentic Reinforcement Learning Training"
     date: "1/2026"
     category: "Technical Blog"
     link: "https://marble-hyssop-6ce.notion.site/Stabilizing-MoE-Agentic-RL-with-Router-Replay-389d937be18d80d3bedeee9ade77781c?pvs=73"
@@ -36,7 +36,7 @@ blogs:
     image: ./assets/img/blog-3d-visual-computing.png
     tags: ["Computer Graphics", "3D Vision", "Course Notes"]
 
-  - title: "Machine Learning Course Notes - Learning Theory"
+  - title: "Machine Learning Course Notes: Learning Theory"
     date: "1/2025"
     category: "Course Note"
     summary: "Comprehensive notes on learning theory, covering PAC learning, VC dimension, and statistical learning foundations."

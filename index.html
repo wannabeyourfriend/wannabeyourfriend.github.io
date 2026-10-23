@@ -44,7 +44,7 @@ layout: homepage
       </p>
 
       <figure class="loop-fig reveal" role="img"
-              aria-label="Diagram: a human and the world connected through an LLM agent — intent and assistance on one side, action and feedback on the other — the whole system held in one quiet orbit.">
+              aria-label="Diagram showing a human and the world connected through an LLM agent, with intent and assistance on one side and action and feedback on the other.">
         <svg viewBox="0 0 860 320" xmlns="http://www.w3.org/2000/svg">
           <!-- the quiet orbit holding the whole system -->
           <path id="grand-orbit" class="orbit" fill="none" stroke="#c2cbc8" stroke-width="1.6" stroke-dasharray="0.1 7" stroke-linecap="round" d="M30,162 a390,122 0 1,0 780,0 a390,122 0 1,0 -780,0"/>
@@ -85,7 +85,7 @@ layout: homepage
           <circle class="glyph" cx="134" cy="148" r="9"/>
           <path class="glyph" d="M116,184 c4,-15 32,-15 36,0"/>
           <text class="t-name" x="134" y="232" text-anchor="middle">Human</text>
-          <text x="134" y="250" text-anchor="middle">intent · preference</text>
+          <text x="134" y="250" text-anchor="middle">intent, preference</text>
 
           <!-- llm agent -->
           <circle class="halo" cx="424" cy="160" r="66"/>
@@ -93,7 +93,7 @@ layout: homepage
           <path class="glyph agent-spark" stroke-width="2.4"
                 d="M424,136 v15 M424,169 v15 M400,160 h15 M433,160 h15 M407,143 l10.5,10.5 M430.5,166.5 l10.5,10.5 M441,143 l-10.5,10.5 M417.5,166.5 l-10.5,10.5"/>
           <text class="t-name" x="424" y="242" text-anchor="middle">LLM Agent</text>
-          <text x="424" y="260" text-anchor="middle">reason · plan · act</text>
+          <text x="424" y="260" text-anchor="middle">reason, plan, act</text>
 
           <!-- the world, wireframe -->
           <g class="wglobe">
@@ -106,7 +106,7 @@ layout: homepage
             <ellipse class="wg-line" fill="none" stroke="#dfe4e1" cx="716" cy="160" rx="64" ry="54"/>
           </g>
           <text class="t-name" x="716" y="252" text-anchor="middle">Environment</text>
-          <text x="716" y="270" text-anchor="middle">tools · tasks · world</text>
+          <text x="716" y="270" text-anchor="middle">tools, tasks, world</text>
         </svg>
       </figure>
 
@@ -126,7 +126,7 @@ layout: homepage
             <path d="M20 4l12 4.5v9c0 8-5 14.5-12 17.5C13 32 8 25.5 8 17.5v-9L20 4z"/>
             <path d="M14.5 19.5l4 4 7-8"/>
           </svg>
-          <h3>Human-Aware Models</h3>
+          <h3>Human Aware Models</h3>
           <p>User simulation and structured supervision for personalization and reasoning about user intent.</p>
         </div>
         <div class="card">
@@ -154,19 +154,19 @@ layout: homepage
     <div class="sec-body">
       <div class="edu-list">
         <div class="edu-row reveal">
-          <div class="edu-when">2023 — present</div>
+          <div class="edu-when">2023 to present</div>
           <div class="edu-what">
-            <div class="edu-title">B.S. in Math&amp;Physics</div>
+            <div class="edu-title">B.S. in Mathematics and Physics</div>
             <div class="edu-org"><img class="inline-logo" src="/assets/img/tsinghua.png" width="20" height="20" alt="">Tsinghua University</div>
-            <div class="edu-note">Minor in Artificial Intelligence · GPA: 3.9/4.0</div>
+            <div class="edu-note">Minor in Artificial Intelligence, GPA: 3.9/4.0</div>
           </div>
         </div>
         <div class="edu-row reveal">
-          <div class="edu-when">Sep 2025 — Jan 2026</div>
+          <div class="edu-when">Sep 2025 to Jan 2026</div>
           <div class="edu-what">
             <div class="edu-title">Visiting Student in Computer Science</div>
             <div class="edu-org"><img class="inline-logo" src="/assets/img/ucsd.ico" width="20" height="20" alt="">UC San Diego</div>
-            <div class="edu-note">Marshall College · UCEAP · GPA: 3.9/4.0</div>
+            <div class="edu-note">Marshall College, UCEAP, GPA: 3.9/4.0</div>
           </div>
         </div>
       </div>
@@ -192,8 +192,8 @@ layout: homepage
     </aside>
     <div class="sec-body">
       <p class="lede reveal">
-        I build with agents, and agents run on <strong>tokens</strong>. Every chart below is live
-        telemetry from my own machines — every token my coding agents have read, cached, and written.
+        These charts show <strong>token usage</strong> from coding agents on my own machines,
+        including tokens they have read, cached, and written.
       </p>
 
       <div class="tok-stats reveal" id="tok-stats">
@@ -207,7 +207,7 @@ layout: homepage
         </div>
         <div class="tok-stat">
           <div class="tok-num mono" data-stat="value">0</div>
-          <div class="tok-k">api-equivalent value</div>
+          <div class="tok-k">equivalent API value</div>
         </div>
         <div class="tok-stat">
           <div class="tok-num mono" data-stat="out">0</div>
@@ -225,7 +225,7 @@ layout: homepage
         <figure class="tok-fig reveal" role="img" aria-label="Composition of token spend: cache reads, cache writes, fresh input, and output.">
           <svg id="tok-donut" viewBox="0 0 240 240"></svg>
         </figure>
-        <figure class="tok-fig reveal" role="img" aria-label="Top models ranked by api-equivalent value.">
+        <figure class="tok-fig reveal" role="img" aria-label="Top models ranked by equivalent API value.">
           <div id="tok-bars"></div>
         </figure>
       </div>

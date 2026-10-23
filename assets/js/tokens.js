@@ -18,6 +18,7 @@
     return '' + Math.round(n);
   }
   function fmtUsd(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+  function fmtDate(value) { return value.replace(/-/g, '/'); }
 
   var DATA = null;
 
@@ -28,7 +29,7 @@
 
   function init(data) {
     var synced = $('#tok-synced');
-    if (synced) synced.textContent = data.synced;
+    if (synced) synced.textContent = fmtDate(data.synced);
 
     /* dense day axis: fill calendar gaps with zeros */
     var days = buildDense(data.days);
@@ -170,7 +171,7 @@
       ctx.font = '10px ' + css('--mono');
       for (var m = 0; m < n; m++) {
         if (days[m].d.slice(8) === '01' || m === 0) {
-          ctx.fillText(days[m].d.slice(0, 7), x(m) + 2, H - 4);
+          ctx.fillText(fmtDate(days[m].d.slice(0, 7)), x(m) + 2, H - 4);
         }
       }
     }
@@ -199,8 +200,8 @@
       var d = days[i], tot = 0;
       Object.keys(d.f).forEach(function (f) { tot += d.f[f][0]; });
       readout.textContent = tot
-        ? d.d + ' · ' + fmt(tot) + ' tokens · ' + fmtUsd(d.cost)
-        : d.d + ' · quiet day';
+        ? fmtDate(d.d) + ': ' + fmt(tot) + ' tokens, ' + fmtUsd(d.cost)
+        : fmtDate(d.d) + ': quiet day';
       draw();
     });
     canvas.addEventListener('mouseleave', function () {
@@ -247,7 +248,7 @@
       seg.setAttribute('transform', 'rotate(' + (acc * 360 - 90) + ' 120 120)');
       seg.setAttribute('class', 'donut-seg');
       seg.dataset.label = SEG_LABEL[k];
-      seg.dataset.value = fmt(vals[k]) + ' · ' + (frac * 100).toFixed(1) + '%';
+      seg.dataset.value = fmt(vals[k]) + ', ' + (frac * 100).toFixed(1) + '%';
       svg.appendChild(seg);
       acc += frac;
     });
@@ -260,8 +261,8 @@
 
     svg.addEventListener('mouseover', function (e) {
       if (!e.target.dataset.label) return;
-      big.textContent = e.target.dataset.value.split(' · ')[1];
-      small.textContent = e.target.dataset.label + ' · ' + e.target.dataset.value.split(' · ')[0];
+      big.textContent = e.target.dataset.value.split(', ')[1];
+      small.textContent = e.target.dataset.label + ': ' + e.target.dataset.value.split(', ')[0];
     });
     svg.addEventListener('mouseleave', function () {
       big.textContent = hit + '%';
@@ -287,7 +288,7 @@
       row.innerHTML =
         '<span class="tok-bar-name mono">' + (FAM_LABEL[m.name] || m.name) + '</span>' +
         '<span class="tok-bar-track"><i style="background:' + (FAM_COLOR[m.name] || '#8a9492') + '" data-w="' + (m.cost / max * 100) + '"></i></span>' +
-        '<span class="tok-bar-val mono">' + fmtUsd(m.cost) + ' · ' + fmt(m.tok) + '</span>';
+        '<span class="tok-bar-val mono">' + fmtUsd(m.cost) + ', ' + fmt(m.tok) + '</span>';
       host.appendChild(row);
     });
     var io = new IntersectionObserver(function (entries) {
@@ -341,11 +342,11 @@
             var a = 0.12 + 0.88 * Math.pow(Math.log10(1 + rec.tok) / maxLog, 2.2);
             r.setAttribute('fill', accent);
             r.setAttribute('fill-opacity', a.toFixed(2));
-            r.dataset.txt = key + ' · ' + fmt(rec.tok) + ' tokens · ' + fmtUsd(rec.cost);
+            r.dataset.txt = fmtDate(key) + ': ' + fmt(rec.tok) + ' tokens, ' + fmtUsd(rec.cost);
           } else {
             r.setAttribute('fill', css('--line'));
             r.setAttribute('fill-opacity', dt < first ? 0 : 0.45);
-            if (dt >= first) r.dataset.txt = key + ' · quiet day';
+            if (dt >= first) r.dataset.txt = fmtDate(key) + ': quiet day';
           }
           r.setAttribute('class', 'heat-cell');
           svg.appendChild(r);
@@ -425,7 +426,7 @@
       if (clicks >= 3) {
         clicks = 0;
         tokenRain();
-        toast('✳ token 即生产力 — tokens are productivity');
+        toast('✳ token 即生产力: tokens are productivity');
       }
     });
     /* expose for the hidden terminal */
@@ -434,8 +435,8 @@
       stats: function () {
         var t = data.totals;
         var hit = ((t.cr / (t.in + t.cc + t.cr)) * 100).toFixed(1);
-        return fmt(t.in + t.out + t.cc + t.cr) + ' tokens · cache hit ' + hit +
-          '% · ' + fmtUsd(t.cost) + ' api-equivalent · synced ' + data.synced;
+        return fmt(t.in + t.out + t.cc + t.cr) + ' tokens, cache hit ' + hit +
+          '%, ' + fmtUsd(t.cost) + ' equivalent API value, synced ' + fmtDate(data.synced);
       }
     };
   }

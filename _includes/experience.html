@@ -12,17 +12,16 @@
         <div class="xp reveal">
           <div class="xp-badge"><img src="{{ item.icon }}" alt="" width="32" height="32" loading="lazy"></div>
           <div class="xp-body">
-            <div class="xp-role">{{ item.role }}{% if item.type %} <span class="xp-type">· {{ item.type }}</span>{% endif %}</div>
+            <div class="xp-role">{{ item.role }}{% if item.type %} <span class="xp-type">({{ item.type }})</span>{% endif %}</div>
             <div class="xp-org">
               {% if item.org_link %}<a href="{{ item.org_link }}" target="_blank" rel="noopener">{{ item.org }}</a>{% else %}{{ item.org }}{% endif %}
-              {% if item.org_sub %}<span class="xp-org-sub"> — {{ item.org_sub }}</span>{% endif %}
+              {% if item.org_sub %}<br><span class="xp-org-sub">{{ item.org_sub }}</span>{% endif %}
             </div>
             <div class="xp-meta">
               <span>{{ item.period }}</span>
-              <span>·</span>
               <span{% if item.start %} class="xp-dur" data-start="{{ item.start }}"{% endif %}>{{ item.duration }}</span>
-              {% if item.location %}<span>·</span><span>{{ item.location }}</span>{% endif %}
-              {% if item.arrangement %}<span>·</span><span>{{ item.arrangement }}</span>{% endif %}
+              {% if item.location %}<span>{{ item.location }}</span>{% endif %}
+              {% if item.arrangement %}<span>{{ item.arrangement }}</span>{% endif %}
             </div>
             {% if item.tags %}
             <div class="xp-tags">

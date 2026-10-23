@@ -3,17 +3,17 @@ experience:
     org: "Looki"
     org_link:
     type: "Internship"
-    period: "Apr 2026 — Present"
+    period: "Apr 2026 to Present"
     start: "2026-04"
     duration: "1 mo"
-    tags: ["Agentic AI", "Human-Centered AI", "Large Language Models"]
+    tags: ["Agentic AI", "Human Centered AI", "Large Language Models"]
     icon: "/assets/img/looki.svg"
 
   - role: "Research Assistant"
     org: "CMU Zanette's Lab"
     org_link: "https://azanette.com/"
     type:
-    period: "Apr 2026 — Sep 2026"
+    period: "Apr 2026 to Sep 2026"
     duration: "6 mos"
     tags: ["Agentic AI", "Large Language Models"]
     icon: "/assets/img/cmu.png"
@@ -22,17 +22,17 @@ experience:
     org: "MiroMind.ai"
     org_link: "https://research.miromind.ai/"
     type: "Internship"
-    period: "Jun 2025 — Nov 2025"
+    period: "Jun 2025 to Nov 2025"
     duration: "6 mos"
     tags: ["Agentic AI", "Large Language Models"]
     icon: "/assets/img/miromind.png"
 
   - role: "Research Assistant"
     org: "Halıcıoğlu Data Science Institute"
-    org_sub: "UC San Diego (HDSI) — MixLab, advised by Dr. Zhen Wang"
+    org_sub: "UC San Diego (HDSI), MixLab, advised by Dr. Zhen Wang"
     org_link: "https://mixlab.ucsd.edu/"
     type:
-    period: "Nov 2025 — Apr 2026"
+    period: "Nov 2025 to Apr 2026"
     duration: "6 mos"
     tags: ["Interactive AI", "Large Language Models"]
     icon: "/assets/img/ucsd.ico"

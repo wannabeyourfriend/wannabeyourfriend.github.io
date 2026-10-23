@@ -1,7 +1,7 @@
 publications:
-  - title: "Harness Learning Enables Generalizable Test-Time Adaptation"
+  - title: "Harness Learning Enables Generalizable Test Time Adaptation"
     conference_short: LLA Workshop
-    conference: "COLM 2026 LLA Workshop — Accepted, Spotlight Oral"
+    conference: "COLM 2026 LLA Workshop (Accepted, Spotlight Oral)"
     authors: "Alvin Zhang*, Xuecheng Liu*, <strong>Zixuan Wang*</strong>, Fahim Tajwar, Daman Arora, Ruslan Salakhutdinov, Daniel Khashabi, Yuda Song, Andrea Zanette"
     page: https://arxiv.org/abs/2609.35738
     pdf: https://arxiv.org/pdf/2609.35738
@@ -11,17 +11,17 @@ publications:
     diagram: true
     notes: "* Equal contribution"
 
-  - title: "Mind2Dialogue: Training Human-Aware Language Models by Simulating User Mental States"
+  - title: "Mind2Dialogue: Training Human Aware Language Models by Simulating User Mental States"
     conference_short: UserSim Workshop
-    conference: "NeurIPS 2026 UserSim Workshop — Accepted"
-    workshop_title: "Mind2Dialogue: Training Human-Aware Language Models through Shared-State User Simulation"
+    conference: "NeurIPS 2026 UserSim Workshop (Accepted)"
+    workshop_title: "Mind2Dialogue: Training Human Aware Language Models through Shared State User Simulation"
     authors: "<strong>Zixuan Wang*</strong>, Yufan Zhou*, Jinzhou Tang*, Xinle Yu, Chengjun Wu, Lyumanshan Ye, Zhaoxiang Feng, Letian Peng, Adyasha Patra, Fan Bai, Enze Ma, Zhengding Hu, Jianyang Gu, Zhao Wang, Yufei Ding, Jingbo Shang, Tianmin Shu, Zhiting Hu, Zhen Wang"
     page: https://arxiv.org/abs/2609.15972
     pdf: https://arxiv.org/pdf/2609.15972
     project: https://wannabeyourfriend.github.io/mind2dialogue/
     code: https://github.com/wannabeyourfriend/mind2dialogue
     dataset: https://huggingface.co/datasets/wannabeyourfriend-hf/mind2dialogue
-    summary: "Shared-state user simulation provides privileged supervision for personalization and theory-of-mind reasoning."
+    summary: "User simulation with shared state provides privileged supervision for personalization and theory of mind reasoning."
     image: ./assets/img/mind2dialogue.png
     diagram: true
     notes: (*Equal Contribution)
@@ -29,26 +29,26 @@ publications:
   - title: "Drift Calibration in Geometric Eye Tracking Systems"
     conference_short: Preprint
     conference: "Preprint, 2026"
-    authors: "Jiaqi Liu*, <strong>Zixuan Wang*</strong>, Yuhong Zhang, Dingkang Liang, Jane Hanqi Li, Tzyy-Ping Jung, Gert Cauwenberghs†"
+    authors: "Jiaqi Liu*, <strong>Zixuan Wang*</strong>, Yuhong Zhang, Dingkang Liang, Jane Hanqi Li, Tzyy Ping Jung, Gert Cauwenberghs†"
     page: https://arxiv.org/abs/2608.29739
     pdf: https://arxiv.org/pdf/2608.29739
     code: https://github.com/wannabeyourfriend/gaze-refine-net
-    summary: "A calibration-focused eye-tracking dataset and lightweight neural refinement for residual gaze error."
+    summary: "An eye tracking dataset focused on calibration, with lightweight neural refinement for residual gaze error."
     image: ./assets/img/chi-eyetrack.png
     notes: (*Equal Contribution)
 
-  - title: "MemAudit: Auditing Long-Term Agent Memory via Hidden User-State Recovery"
+  - title: "MemAudit: Auditing Long Term Agent Memory via Hidden User State Recovery"
     conference_short: Preprint
     conference: "Preprint, 2026"
-    authors: "Enze Ma, Yufan Zhou, Wei-Chieh Huang, Jie Yang, Huanhuan Ma, <strong>Zixuan Wang</strong>, Chengze Li, Chunyu Miao, Philip S. Yu, Zhen Wang"
+    authors: "Enze Ma, Yufan Zhou, Wei Chieh Huang, Jie Yang, Huanhuan Ma, <strong>Zixuan Wang</strong>, Chengze Li, Chunyu Miao, Philip S. Yu, Zhen Wang"
     image: ./assets/img/memprobe.png
     page: https://arxiv.org/abs/2606.24595
     pdf: https://arxiv.org/pdf/2606.24595
     code: https://github.com/sora1998/MemProbe
-    summary: "The MEMPROBE benchmark measures how much hidden user state can be recovered from an agent's long-term memory."
+    summary: "The MEMPROBE benchmark measures how much hidden user state can be recovered from an agent's long term memory."
 
 technical_reports:
-  - title: "MiroThinker: Pushing the Performance Boundaries of Open-Source Research Agents via Model, Context, and Interactive Scaling"
+  - title: "MiroThinker: Pushing the Performance Boundaries of Open Source Research Agents via Model, Context, and Interactive Scaling"
     conference_short: Technical Report
     conference: Preprint, arXiv:2511.11793
     page: https://arxiv.org/abs/2511.11793
@@ -57,7 +57,7 @@ technical_reports:
     notes: Project Contributor
 
 selected_writing:
-  - title: "RC3: Rollout Chunking with Context Compression for Accelerating Long-Horizon Reinforcement Learning"
+  - title: "RC3: Rollout Chunking with Context Compression for Accelerating Long Horizon Reinforcement Learning"
     conference_short: Selected Writing
     conference: Technical Blog, February 2026
     page: https://marble-hyssop-6ce.notion.site/RC3-Rollout-Chunking-with-Context-Compression-387d937be18d81bb84c9f71bffb75b65?pvs=73
@@ -66,7 +66,7 @@ selected_writing:
     notes: Core Contributor
 
 course_projects:
-  - title: "An Optimization View of DP LLM Fine-tuning: When Does Bias Correction Help, and Can the Optimizer Be Improved?"
+  - title: "An Optimization View of DP LLM Fine Tuning: When Does Bias Correction Help, and Can the Optimizer Be Improved?"
     conference_short: Course
     conference: Optimization Course Project
     pdf: /assets/files/optimization-course-report.pdf
@@ -74,7 +74,7 @@ course_projects:
     image: ./assets/img/optimization-course-project.png
     notes: Independent
 
-  - title: "Ego-embodied Reasoner: Egocentric Embodied Reasoning and Planning with MLLM via Reinforcement Learning"
+  - title: "Ego Embodied Reasoner: Egocentric Embodied Reasoning and Planning with MLLM via Reinforcement Learning"
     conference_short: Course
     conference: Deep Reinforcement Learning Course Project, Instructed by Professor Huazhe Xu
     pdf: /assets/files/EgoReasoner.pdf
@@ -83,7 +83,7 @@ course_projects:
     image: ./assets/img/egoreasoner-teaser.png
     notes: Project Leader
 
-  - title: "EgoHOI: Prior-Guided 3D Hand-Object Interaction Reconstruction from Monocular Egocentric RGB Video"
+  - title: "EgoHOI: Prior Guided 3D Hand Object Interaction Reconstruction from Monocular Egocentric RGB Video"
     conference_short: Course
     conference: Computer Vision Course Project
     pdf: /assets/files/EgoHOI.pdf
@@ -91,7 +91,7 @@ course_projects:
     image: ./assets/img/egohoi.png
     notes: Project Leader
 
-  - title: "Unconditional and Image-conditioned 3D Generation"
+  - title: "Unconditional and Image Conditioned 3D Generation"
     conference_short: Course
     conference: 3D Visual Computing Course Project, instructed by Professor Li Yi
     pdf: /assets/files/3DV_project.pdf
@@ -102,7 +102,7 @@ course_projects:
 
   - title: "Human Skeleton and Skin Generation"
     conference_short: Course
-    conference: Fundamentals of Computer Graphics Course Project, the 5-th Jittor AI competition, track 2
+    conference: Fundamentals of Computer Graphics Course Project, the 5th Jittor AI competition, track 2
     pdf: /assets/files/CG_project.pdf
     code: https://github.com/wannabeyourfriend/CG-project
     image: ./assets/img/cg.png
