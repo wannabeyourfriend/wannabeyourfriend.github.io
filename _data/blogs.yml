@@ -1,4 +1,9 @@
 blogs:
+  - title: "Context Management for Long-Horizon Agents"
+    category: "Technical Blog"
+    link: "https://marble-hyssop-6ce.notion.site/Context-Management-for-Long-Horizon-Agents-3f6d937be18d810f9d2fc76b60b971c2"
+    tags: ["Context Management", "LLM Agents"]
+
   - title: "Recovering Summarized CoT from Claude"
     date: "7/2026"
     category: "Technical Blog"
