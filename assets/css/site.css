@@ -1007,6 +1007,41 @@ html.claude .toast { background: var(--accent-strong); color: #f4f7f6; }
 .tok-pipe .pipe-node rect { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.1; }
 .tok-pipe .pipe-node text { font-family: var(--mono); font-size: 11.5px; fill: var(--ink-soft); letter-spacing: 0.02em; }
 
+#tokens.tok-locked .sec-body > :not(.lede):not(.tok-lock) { display: none; }
+#tokens:not(.tok-locked) .tok-lock { display: none; }
+.tok-lock {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 26px;
+  padding: 18px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-card);
+}
+.tok-lock input {
+  flex: 1 1 180px;
+  min-width: 0;
+  padding: 9px 12px;
+  font-size: 0.85rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-btn);
+}
+.tok-lock input:focus { outline: none; border-color: var(--accent); }
+.tok-lock button {
+  padding: 9px 16px;
+  font-size: 0.8rem;
+  color: var(--paper);
+  background: var(--accent);
+  border: 0;
+  border-radius: var(--r-btn);
+  cursor: pointer;
+}
+.tok-lock button:hover { background: var(--accent-strong); }
+.tok-lock-msg { flex-basis: 100%; font-size: 0.72rem; color: var(--gray); }
+
 .token-drop {
   position: fixed;
   top: 0;

@@ -182,7 +182,7 @@ layout: homepage
 
 {% include course-projects.html %}
 
-<section id="tokens" class="sec">
+<section id="tokens" class="sec tok-locked">
   <div class="sec-grid">
     <aside class="sec-aside">
       <div class="reveal">
@@ -195,6 +195,12 @@ layout: homepage
         These charts show <strong>token usage</strong> from coding agents on my own machines,
         including tokens they have read, cached, and written.
       </p>
+
+      <form class="tok-lock reveal" id="tok-lock">
+        <input class="mono" id="tok-pass" type="password" placeholder="password" aria-label="Password for this section" autocomplete="current-password">
+        <button class="mono" type="submit">unlock</button>
+        <span class="tok-lock-msg mono" id="tok-lock-msg" role="status">This section is password protected</span>
+      </form>
 
       <div class="tok-stats reveal" id="tok-stats">
         <div class="tok-stat" id="tok-egg" title="✳">

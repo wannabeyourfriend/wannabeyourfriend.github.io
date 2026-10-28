@@ -226,7 +226,7 @@
           print('<span class="ok">' + window.__tokens.stats() + '</span>');
           print('<span class="accent">token 即生产力</span>: tokens are productivity ✳\n');
           window.__tokens.rain();
-        } else print('telemetry is still loading. try again in a second\n');
+        } else print('telemetry is locked or still loading\n');
         break;
       case 'sudo':
         print('<span class="accent">permission denied:</span> this incident will be reported to absolutely no one.\n');

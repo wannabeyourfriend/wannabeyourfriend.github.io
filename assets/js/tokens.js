@@ -21,11 +21,33 @@
   function fmtDate(value) { return value.replace(/-/g, '/'); }
 
   var DATA = null;
+  var PASS_HASH = '742cce91672211e8ffe4ae0978846bb607d69ac28d61b87e26b00628750b4faa'; /* sha256 of the section password */
 
-  fetch('/assets/data/tokens.json')
-    .then(function (r) { return r.json(); })
-    .then(function (json) { DATA = json; init(json); })
-    .catch(function () { /* section stays quiet without data */ });
+  function load() {
+    $('#tokens').classList.remove('tok-locked');
+    fetch('/assets/data/tokens.json')
+      .then(function (r) { return r.json(); })
+      .then(function (json) { DATA = json; init(json); })
+      .catch(function () { /* section stays quiet without data */ });
+  }
+
+  function sha256(text) {
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(function (buf) {
+      return Array.from(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+    });
+  }
+
+  var saved = null;
+  try { saved = localStorage.getItem('tok-pass'); } catch (e) {}
+  if (saved === PASS_HASH) load();
+  else $('#tok-lock').addEventListener('submit', function (e) {
+    e.preventDefault();
+    sha256($('#tok-pass').value).then(function (h) {
+      if (h !== PASS_HASH) { $('#tok-lock-msg').textContent = 'Wrong password'; return; }
+      try { localStorage.setItem('tok-pass', h); } catch (e) {}
+      load();
+    });
+  });
 
   function init(data) {
     var synced = $('#tok-synced');
