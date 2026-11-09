@@ -452,22 +452,7 @@ img { max-width: 100%; display: block; }
 .card:hover .icon path,
 .card:hover .icon circle { stroke-dashoffset: 0; }
 
-/* ---------- Education ---------- */
-.edu-list { margin-top: 8px; }
-.edu-row {
-  display: grid;
-  grid-template-columns: 150px minmax(0, 1fr);
-  gap: 24px;
-  padding: 22px 0;
-  border-bottom: 1px solid var(--line);
-}
-.edu-row:last-child { border-bottom: 0; }
-.edu-when { font-family: var(--mono); font-size: 0.8rem; color: var(--gray-mute); padding-top: 4px; }
-.edu-what .edu-title { font-weight: 600; font-size: 1.02rem; }
-.edu-what .edu-org { font-family: var(--serif); color: var(--gray); font-size: 0.98rem; margin-top: 2px; }
-.edu-what .edu-note { font-size: 0.85rem; color: var(--gray-mute); margin-top: 4px; }
-
-/* ---------- Experience timeline ---------- */
+/* ---------- 教育与经历 ---------- */
 .xp-list { margin-top: 8px; }
 .xp {
   position: relative;
@@ -506,6 +491,7 @@ img { max-width: 100%; display: block; }
   flex-wrap: wrap;
   gap: 4px 10px;
 }
+.xp-note { font-size: 0.85rem; color: var(--gray-mute); margin-top: 10px; }
 .xp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .tag {
   font-size: 0.74rem;
@@ -872,7 +858,7 @@ html.claude .toast { background: var(--accent-strong); color: #f4f7f6; }
   .cards-3, .repo-grid, .facts { grid-template-columns: 1fr; }
   .pub { grid-template-columns: 1fr; }
   .pub-thumb { max-width: 280px; }
-  .edu-row, .note-row { grid-template-columns: 1fr; gap: 4px; }
+  .note-row { grid-template-columns: 1fr; gap: 4px; }
   .note-row--with-image { grid-template-areas: "date" "thumb" "main"; grid-template-rows: auto; gap: 10px; }
   .note-thumb { width: min(100%, 280px); }
   .hero { padding-top: 104px; }
