@@ -670,11 +670,19 @@ img { max-width: 100%; display: block; }
   padding: 22px 0;
   border-bottom: 1px solid var(--line);
 }
+/* 缩略图列与 .pub 对齐，日期放到标题上方 */
 .note-row--with-image {
-  grid-template-columns: 92px 160px minmax(0, 1fr);
-  gap: 20px;
+  grid-template-columns: 168px minmax(0, 1fr);
+  grid-template-areas: "thumb date" "thumb main";
+  grid-template-rows: auto 1fr;
+  column-gap: 22px;
+  row-gap: 4px;
+  padding: 24px 0;
   align-items: start;
 }
+.note-row--with-image .note-date { grid-area: date; padding-top: 0; }
+.note-row--with-image .note-thumb { grid-area: thumb; }
+.note-row--with-image .note-main { grid-area: main; }
 .note-row:last-child { border-bottom: 0; }
 .note-date { font-family: var(--mono); font-size: 0.76rem; color: var(--gray-mute); padding-top: 5px; }
 .note-thumb {
@@ -865,7 +873,7 @@ html.claude .toast { background: var(--accent-strong); color: #f4f7f6; }
   .pub { grid-template-columns: 1fr; }
   .pub-thumb { max-width: 280px; }
   .edu-row, .note-row { grid-template-columns: 1fr; gap: 4px; }
-  .note-row--with-image { gap: 10px; }
+  .note-row--with-image { grid-template-areas: "date" "thumb" "main"; grid-template-rows: auto; gap: 10px; }
   .note-thumb { width: min(100%, 280px); }
   .hero { padding-top: 104px; }
   .hero-globe { width: min(60vw, 230px); }
