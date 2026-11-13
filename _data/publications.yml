@@ -1,4 +1,14 @@
 publications:
+  - title: "LifeTrail: Benchmarking Multimodal Memory, Personalization, and Proactive Assistance over Long Horizon Real World Life Traces"
+    conference_short: Under Review
+    conference: "CVPR 2027 (Under Review)"
+    authors: "<strong>Zixuan Wang</strong>, Dayu Yue, Yilin Gui, Yufeng Zhou, Bocong Liu‡, Miao Liu†"
+    pdf: /assets/files/LifeTrail_CVPR2027.pdf
+    summary: "Over 1,300 user reviewed questions on months of real world multimodal life records test personalization, memory, proactive assistance, and grounding."
+    image: ./assets/img/lifetrail.png
+    diagram: true
+    notes: "†‡ Corresponding author"
+
   - title: "Harness Learning Enables Generalizable Test Time Adaptation"
     conference_short: LLA Workshop
     conference: "COLM 2026 LLA Workshop (Accepted, Spotlight Oral)"
