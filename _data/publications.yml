@@ -3,7 +3,8 @@ publications:
     conference_short: Under Review
     conference: "CVPR 2027 (Under Review)"
     authors: "<strong>Zixuan Wang</strong>, Dayu Yue, Yilin Gui, Yufeng Zhou, Bocong Liu‡, Miao Liu†"
-    pdf: /assets/files/LifeTrail_CVPR2027.pdf
+    pdf: https://wangzixuan-looki.github.io/lifetrail.github.io/assets/LifeTrail.pdf
+    project: https://wangzixuan-looki.github.io/lifetrail.github.io/
     summary: "Over 1,300 user reviewed questions on months of real world multimodal life records test personalization, memory, proactive assistance, and grounding."
     image: ./assets/img/lifetrail.png
     diagram: true
